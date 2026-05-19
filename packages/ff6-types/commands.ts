@@ -45,7 +45,7 @@ export type CommandArray = [
   number,
   number,
   number,
-  number
+  number,
 ];
 
 export const DEFAULT_COMMANDS: CommandArray = [

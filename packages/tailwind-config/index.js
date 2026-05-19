@@ -38,7 +38,8 @@ module.exports = {
         mono: ["'Roboto Mono'", "monospace"],
         roboto: ["'Roboto'", "sans-serif"],
         ff3: ["'Final Fantasy 3/6 Font'", "sans-serif"],
-        header: ["'Runic'", "sans-serif"]
+        header: ["'Runic'", "sans-serif"],
+        outfit: ["'Outfit'", "sans-serif"]
       },
       boxShadow: {
         'input-focus': '0 0 0 2px #55cbff',

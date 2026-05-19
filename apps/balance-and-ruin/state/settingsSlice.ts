@@ -13,6 +13,8 @@ export interface SettingsState {
     showWorkshop: boolean;
     /** Hides header, hero image, footer from the view */
     showLayout: boolean;
+    /** Displays the flag name next to the option title */
+    showFlags: boolean;
   };
 }
 
@@ -22,6 +24,7 @@ const initialState: SettingsState = {
     showDeprecated: true,
     showWorkshop: false,
     showLayout: false,
+    showFlags: false,
   },
 };
 
@@ -32,6 +35,9 @@ export const settingsSlice = createSlice({
   reducers: {
     // Action to set the settingsentication status
     setSetting(state, action) {},
+    setShowFlags(state, action: { payload: boolean }) {
+      state.settings.showFlags = action.payload;
+    },
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
@@ -44,8 +50,10 @@ export const settingsSlice = createSlice({
   },
 });
 
-export const { setSetting } = settingsSlice.actions;
+export const { setSetting, setShowFlags } = settingsSlice.actions;
 
-export const selectSettings = (state: AppState) => state.settings.settings;
+export const selectSettings = (state: AppState) => state?.settings?.settings;
+export const selectShowFlags = (state: AppState) =>
+  !!state?.settings?.settings?.showFlags;
 
 export default settingsSlice.reducer;

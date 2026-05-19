@@ -1,3 +1,5 @@
+import styles from "./Footer.module.css";
+
 export type FooterProps = {
   messages: React.ReactNode[];
 };
@@ -5,9 +7,9 @@ export type FooterProps = {
 export const Footer = (props: FooterProps) => {
   const { messages } = props;
   return (
-    <div className="WC-footer flex flex-col gap-2 w-full justify-center items-center bg-gray-600 text-white text-xs p-3">
+    <div className={styles.footer}>
       {messages.map((m, idx) => (
-        <div className="text-center" key={idx}>
+        <div className={styles.footerText} key={idx}>
           {m}
         </div>
       ))}

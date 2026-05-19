@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "next build && next export && touch out/.nojekyll",
+    "dev": "next dev -p 3001",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export && touch out/.nojekyll",
+    "export": "next build && next export",
     "vercel": "vercel dev"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "@ff6wc/utils": "workspace:*",
     "@types/chroma-js": "2.1.4",
     "@types/lodash": "4.14.188",
+    "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "lodash": "4.17.21",

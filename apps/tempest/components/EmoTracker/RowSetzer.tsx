@@ -8,19 +8,19 @@ const group = new LayoutGroup("setzer", "flex-end", [
     "darill",
     "darill",
     ({ events }) => events.darill,
-    ({ characters }) => characters.setzer
+    ({ characters }) => characters.setzer,
   ),
   new LayoutCell(
     "kohligen",
     "kohligen",
     ({ events }) => events.kohligen,
-    ({ characters }) => characters.setzer
+    ({ characters }) => characters.setzer,
   ),
   new CharacterCell(
     "setzer",
     "setzer",
     ({ characters }) => characters.setzer,
-    ({ characters }) => characters.setzer
+    ({ characters }) => characters.setzer,
   ),
 ]);
 

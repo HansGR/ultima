@@ -6,42 +6,42 @@ const groupByLocation = new LayoutGroup("dragons", "flex-wrap", [
   new LayoutCell(
     "narsheDragon",
     "narsheDragon",
-    ({ dragons }) => dragons.narsheDragon
+    ({ dragons }) => dragons.narsheDragon,
   ),
   new LayoutCell(
     "mtZozoDragon",
     "mtZozoDragon",
-    ({ dragons }) => dragons.mtZozoDragon
+    ({ dragons }) => dragons.mtZozoDragon,
   ),
   new LayoutCell(
     "operaHouseDragon",
     "operaHouseDragon",
-    ({ dragons }) => dragons.operaHouseDragon
+    ({ dragons }) => dragons.operaHouseDragon,
   ),
   new LayoutCell(
     "kefkaTowerMidDragon",
     "kefkaTowerMidDragon",
-    ({ dragons }) => dragons.kefkaTowerMidDragon
+    ({ dragons }) => dragons.kefkaTowerMidDragon,
   ),
   new LayoutCell(
     "kefkaTowerRightDragon",
     "kefkaTowerRightDragon",
-    ({ dragons }) => dragons.kefkaTowerRightDragon
+    ({ dragons }) => dragons.kefkaTowerRightDragon,
   ),
   new LayoutCell(
     "ancientCastleDragon",
     "ancientCastleDragon",
-    ({ dragons }) => dragons.ancientCastleDragon
+    ({ dragons }) => dragons.ancientCastleDragon,
   ),
   new LayoutCell(
     "phoenixCaveDragon",
     "phoenixCaveDragon",
-    ({ dragons }) => dragons.phoenixCaveDragon
+    ({ dragons }) => dragons.phoenixCaveDragon,
   ),
   new LayoutCell(
     "fanaticsTowerDragon",
     "fanaticsTowerDragon",
-    ({ dragons }) => dragons.fanaticsTowerDragon
+    ({ dragons }) => dragons.fanaticsTowerDragon,
   ),
 ]);
 
@@ -50,33 +50,33 @@ const groupByMonster = new LayoutGroup("dragons", "flex-wrap", [
   new LayoutCell(
     "stormDragon",
     "stormDragon",
-    ({ dragons }) => dragons.stormDragon
+    ({ dragons }) => dragons.stormDragon,
   ),
   new LayoutCell(
     "dirtDragon",
     "dirtDragon",
-    ({ dragons }) => dragons.dirtDragon
+    ({ dragons }) => dragons.dirtDragon,
   ),
   new LayoutCell(
     "goldDragon",
     "goldDragon",
-    ({ dragons }) => dragons.goldDragon
+    ({ dragons }) => dragons.goldDragon,
   ),
   new LayoutCell(
     "skullDragon",
     "skullDragon",
-    ({ dragons }) => dragons.skullDragon
+    ({ dragons }) => dragons.skullDragon,
   ),
   new LayoutCell(
     "blueDragon",
     "blueDragon",
-    ({ dragons }) => dragons.blueDragon
+    ({ dragons }) => dragons.blueDragon,
   ),
   new LayoutCell("redDragon", "redDragon", ({ dragons }) => dragons.redDragon),
   new LayoutCell(
     "whiteDragon",
     "whiteDragon",
-    ({ dragons }) => dragons.whiteDragon
+    ({ dragons }) => dragons.whiteDragon,
   ),
 ]);
 

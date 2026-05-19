@@ -13,8 +13,7 @@ const spellOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-esrr",
-    helperText:
-      "(DEPRECATED) Original esper spells with random learn rates",
+    helperText: "(DEPRECATED) Original esper spells with random learn rates",
     label: "Original (Random Rates)",
     isStatic: true,
   },
@@ -28,8 +27,7 @@ const spellOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-essrr",
-    helperText:
-      "(DEPRECATED) Esper spells shuffled with random learn rates",
+    helperText: "(DEPRECATED) Esper spells shuffled with random learn rates",
     label: "Shuffle (Random Rates)",
     isStatic: true,
   },
@@ -56,8 +54,7 @@ const learnRateOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-elr",
-    helperText:
-      "Esper learn rates randomized",
+    helperText: "Esper learn rates randomized",
     label: "Random",
     isStatic: true,
   },
@@ -68,7 +65,7 @@ const learnRateOptions: SubflagOption[] = [
     label: "Random Tiered",
     isStatic: true,
   },
-]
+];
 
 const bonusOptions: SubflagOption[] = [
   {
@@ -143,7 +140,8 @@ const equipableOptions: SubflagOption[] = [
 export const Espers = () => {
   return (
     <Card title={"Espers"}>
-      <CardColumn>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+        {/* Row 1: Spells & Learn Rates */}
         <FlagSubflagSelect
           options={spellOptions}
           label="Spells"
@@ -160,6 +158,8 @@ export const Espers = () => {
             label: "Original",
           }}
         />
+
+        {/* Row 2: Bonuses & MP */}
         <FlagSubflagSelect
           options={bonusOptions}
           label="Bonuses"
@@ -176,6 +176,8 @@ export const Espers = () => {
             label: "Original",
           }}
         />
+
+        {/* Row 3: Equipable & Starting Espers */}
         <FlagSubflagSelect
           options={equipableOptions}
           label="Equipable"
@@ -184,14 +186,22 @@ export const Espers = () => {
             label: "Original",
           }}
         />
-        <FlagRange
-          flag="-stesp"
-          helperText={"Begin the game with {{ . }} espers"}
-          label="Starting Espers"
-        />
-        <FlagSwitch flag="-ems" label="Multi Summon" />
-        <FlagSwitch flag="-emi" label="Esper Mastery Icon" />
-      </CardColumn>
+        <div className="flex flex-col justify-center pt-2">
+          <FlagRange
+            flag="-stesp"
+            helperText={"Begin the game with {{ . }} espers"}
+            label="Starting Espers"
+          />
+        </div>
+
+        {/* Row 4: Multi Summon & Esper Mastery Icon (Locked horizontally) */}
+        <div className="flex items-center h-full min-h-[44px]">
+          <FlagSwitch flag="-ems" label="Multi Summon" />
+        </div>
+        <div className="flex items-center h-full min-h-[44px]">
+          <FlagSwitch flag="-emi" label="Esper Mastery Icon" />
+        </div>
+      </div>
     </Card>
   );
 };

@@ -1,0 +1,184 @@
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from C:\Users\drlov\.gemini\antigravity\scratch\ultima\apps\balance-and-ruin\.env.local
+warn  - You have enabled experimental feature (fontLoaders) in next.config.js.
+warn  - Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+
+Browserslist: browsers data (caniuse-lite) is 19 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+event - compiled client and server successfully in 2.4s (419 modules)
+wait  - compiling...
+event - compiled successfully in 1230 ms (367 modules)
+wait  - compiling /404 (client and server)...
+wait  - compiling /create (client and server)...
+event - compiled client and server successfully in 2.2s (1005 modules)
+The object notation for `createSlice.extraReducers` is deprecated, and will be removed in RTK 2.0. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createSlice
+warn  - Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+wait  - compiling...
+event - compiled client and server successfully in 12.3s (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1385 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 6.8s (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1507 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1492 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1434 ms (991 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1455 ms (991 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1497 ms (991 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1417 ms (991 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1655 ms (1002 modules)
+wait  - compiling...
+error - ./page-components/Commands.tsx
+Error: 
+  x the name `GridItem` is defined multiple times
+    ,-[9:1]
+  9 | import { StealCapture } from "~/card-components/StealCapture";
+ 10 | import { SwdTechs } from "~/card-components/SwdTechs";
+ 11 | import { Tools } from "~/card-components/Tools";
+ 12 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :          ^^^^|^^^
+    :              `-- previous definition of `GridItem` here
+ 13 | 
+ 14 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :          ^^^^|^^^
+    :              `-- `GridItem` redefined here
+ 15 | 
+ 16 | export const Commands = () => {
+ 17 |   return (
+    `----
+
+  x the name `PageContainer` is defined multiple times
+    ,-[9:1]
+  9 | import { StealCapture } from "~/card-components/StealCapture";
+ 10 | import { SwdTechs } from "~/card-components/SwdTechs";
+ 11 | import { Tools } from "~/card-components/Tools";
+ 12 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :                    ^^^^^^|^^^^^^
+    :                          `-- previous definition of `PageContainer` here
+ 13 | 
+ 14 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :                    ^^^^^^|^^^^^^
+    :                          `-- `PageContainer` redefined here
+ 15 | 
+ 16 | export const Commands = () => {
+ 17 |   return (
+    `----
+wait  - compiling...
+event - compiled client and server successfully in 1395 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1412 ms (1002 modules)
+wait  - compiling...
+error - ./page-components/Gameplay.tsx
+Error: 
+  x the name `GridItem` is defined multiple times
+    ,-[4:1]
+  4 | import { Coliseum } from "~/card-components/Coliseum";
+  5 | import { MiscCard } from "~/card-components/MiscCard";
+  6 | import { Movement } from "~/card-components/Movement";
+  7 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :          ^^^^|^^^
+    :              `-- previous definition of `GridItem` here
+  8 | 
+  9 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :          ^^^^|^^^
+    :              `-- `GridItem` redefined here
+ 10 | 
+ 11 | export const Gameplay = () => {
+ 12 |   return (
+    `----
+
+  x the name `PageContainer` is defined multiple times
+    ,-[4:1]
+  4 | import { Coliseum } from "~/card-components/Coliseum";
+  5 | import { MiscCard } from "~/card-components/MiscCard";
+  6 | import { Movement } from "~/card-components/Movement";
+  7 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :                    ^^^^^^|^^^^^^
+    :                          `-- previous definition of `PageContainer` here
+  8 | 
+  9 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :                    ^^^^^^|^^^^^^
+    :                          `-- `PageContainer` redefined here
+ 10 | 
+ 11 | export const Gameplay = () => {
+ 12 |   return (
+    `----
+wait  - compiling...
+event - compiled client and server successfully in 1396 ms (1002 modules)
+wait  - compiling...
+error - ./page-components/Items.tsx
+Error: 
+  x the name `GridItem` is defined multiple times
+    ,-[5:1]
+  5 | import { OtherItems } from "~/card-components/OtherItems";
+  6 | import { Shops } from "~/card-components/Shops";
+  7 | import { StartingGoldAndItems } from "~/card-components/StartingGoldAndItems";
+  8 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :          ^^^^|^^^
+    :              `-- previous definition of `GridItem` here
+  9 | 
+ 10 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :          ^^^^|^^^
+    :              `-- `GridItem` redefined here
+ 11 | 
+ 12 | export const Items = () => {
+ 13 |   return (
+    `----
+
+  x the name `PageContainer` is defined multiple times
+    ,-[5:1]
+  5 | import { OtherItems } from "~/card-components/OtherItems";
+  6 | import { Shops } from "~/card-components/Shops";
+  7 | import { StartingGoldAndItems } from "~/card-components/StartingGoldAndItems";
+  8 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :                    ^^^^^^|^^^^^^
+    :                          `-- previous definition of `PageContainer` here
+  9 | 
+ 10 | import { GridItem, PageContainer } from "~/components/PageContainer/PageContainer";
+    :                    ^^^^^^|^^^^^^
+    :                          `-- `PageContainer` redefined here
+ 11 | 
+ 12 | export const Items = () => {
+ 13 |   return (
+    `----
+wait  - compiling...
+event - compiled client and server successfully in 1339 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 3.1s (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 2.9s (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1578 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1441 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1407 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1540 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1422 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1448 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1634 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1554 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1406 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1625 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1414 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 3.1s (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1427 ms (1002 modules)
+wait  - compiling...
+event - compiled client and server successfully in 1579 ms (1002 modules)

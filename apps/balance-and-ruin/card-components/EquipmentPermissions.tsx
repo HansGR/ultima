@@ -54,12 +54,14 @@ const equipableOptions: SubflagOption[] = [
     flag: "-ietr",
     helperText: () => (
       <>
-        Equipment is categorized by tier and chance of being equipable by a character is chosen at random. Higher tier equipment is less likely to be equipable
+        Equipment is categorized by tier and chance of being equipable by a
+        character is chosen at random. Higher tier equipment is less likely to
+        be equipable
       </>
     ),
     label: "Tiered Random",
     isStatic: true,
-  }
+  },
 ];
 
 const equipableRelicOptions: SubflagOption[] = [
@@ -107,12 +109,14 @@ const equipableRelicOptions: SubflagOption[] = [
     flag: "-iertr",
     helperText: () => (
       <>
-        Relics are categorized by tier and chance of being equipable by a character is chosen at random. Higher tier relics are less likely to be equipable.
+        Relics are categorized by tier and chance of being equipable by a
+        character is chosen at random. Higher tier relics are less likely to be
+        equipable.
       </>
     ),
     label: "Tiered Random",
     isStatic: true,
-  }
+  },
 ];
 
 export const EquipmentPermissions = () => {

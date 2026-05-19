@@ -46,7 +46,7 @@ export const getTrackerDefaults = () => {
 };
 
 export const TrackerContext = React.createContext<TrackerContextData | null>(
-  null
+  null,
 );
 
 export const useTrackerContext = () => {

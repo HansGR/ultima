@@ -27,7 +27,7 @@ const flashOptions: SubflagOption[] = [
 export const AccessibilityCard = () => {
   return (
     <Card title={"Accessibility"}>
-      <CardColumn>
+      <div className="flex flex-col gap-6">
         <FlagSubflagSelect
           label="Remove Flashes"
           nullable={{
@@ -48,7 +48,7 @@ export const AccessibilityCard = () => {
           helperText="Makes healing text blue, to be able to distinguish easier from damage text"
           label="Alternate Healing Text Color"
         />
-      </CardColumn>
+      </div>
     </Card>
   );
 };

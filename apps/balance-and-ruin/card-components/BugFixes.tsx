@@ -9,10 +9,8 @@ export const BugFixes = () => {
       <CardColumn>
         <FlagSwitch flag="-fedc" label="Enemy Damage Counter" />
         <FlagSwitch flag="-fe" label="Evade" />
-        <Divider />
         <FlagSwitch flag="-fbs" label="Boss Skip" />
         <FlagSwitch flag="-fvd" label="Vanish/Doom" />
-        <Divider />
         <FlagSwitch flag="-fj" label="Jump" />
       </CardColumn>
     </Card>

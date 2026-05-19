@@ -14,7 +14,7 @@ export class RequestSender {
 
   public async sendUtf8<TIn extends Record<string, any>, TOut = void>(
     client: w3cwebsocket,
-    json: TIn
+    json: TIn,
   ): Promise<TOut> {
     return new Promise((resolve, reject) => {
       if (!client) {
@@ -40,7 +40,7 @@ export class RequestSender {
 
   public async sendBinary<TIn extends Record<string, any>>(
     client: w3cwebsocket,
-    json: TIn
+    json: TIn,
   ): Promise<Uint8Array> {
     return new Promise((resolve, reject) => {
       if (!client) {
@@ -72,7 +72,7 @@ export class RequestSender {
 
   public async sendRawBinary(
     client: w3cwebsocket,
-    data: ArrayBuffer
+    data: ArrayBuffer,
   ): Promise<Uint8Array> {
     return new Promise((resolve, reject) => {
       if (!client) {
@@ -103,7 +103,7 @@ export class RequestSender {
 
   public async sendRawNoResponse(
     client: w3cwebsocket,
-    data: ArrayBuffer
+    data: ArrayBuffer,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!client) {
@@ -125,7 +125,7 @@ export class RequestSender {
 
   public async sendNoResponse<TIn extends Record<string, any>>(
     client: w3cwebsocket,
-    json: TIn
+    json: TIn,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!client) {

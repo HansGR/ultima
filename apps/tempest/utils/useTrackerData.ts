@@ -16,7 +16,7 @@ export type TrackerContextData = {
   updateCell: (cell: LayoutCell, value: boolean) => GetSaveDataResponse;
   updateNumberCell: (
     cell: LayoutNumberCell,
-    value: number
+    value: number,
   ) => GetSaveDataResponse;
   updateValue: (key: string, value: any) => GetSaveDataResponse;
   updateData: (data: GetSaveDataResponse) => void;
@@ -47,7 +47,7 @@ export function useTrackerData(props: UseTrackerDataProps) {
       // magitek, floatingContintent, nightmare, auctionHouse, etc.
       if (cell == null) {
         getLogger("useTrackerData--Manual-onClick").info(
-          `no cell for key ${key}`
+          `no cell for key ${key}`,
         );
         return;
       }
@@ -92,7 +92,7 @@ export function useTrackerData(props: UseTrackerDataProps) {
       // magitek, floatingContintent, nightmare, auctionHouse, etc.
       if (cell == null) {
         getLogger("AnguirelTracekr--Manual-onRightClick").info(
-          `no cell for key ${key}`
+          `no cell for key ${key}`,
         );
         return;
       }

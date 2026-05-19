@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import EmoTracker from "~/components/EmoTracker/EmoTracker";
 import { EmoTrackerLayout } from "~/components/EmoTracker/EmoTrackerLayout";
 import { PageContainer } from "~/components/PageContainer";
@@ -7,8 +7,7 @@ import { Footer } from "~/components/Footer/Footer";
 import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 
-
-const Manual = ({showLayout = true}) => {
+const Manual = ({ showLayout = true }) => {
   return (
     <>
       <TempestHead />

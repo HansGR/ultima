@@ -1,0 +1,84 @@
+.button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.button:disabled, .button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.sizeDefault {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.sizeSmall {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.sizeSmallest {
+  padding: 0;
+}
+
+/* Variants */
+.variantDefault {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+}
+.variantDefault:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+.variantPrimary {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.variantPrimary:hover:not(:disabled) {
+  background-color: #2563eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.variantDanger {
+  background: #e11d48;
+  color: #fff;
+}
+.variantDanger:hover:not(:disabled) {
+  background: #be123c;
+}
+
+.variantDiscord {
+  background: #5865F2;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+}
+.variantDiscord:hover:not(:disabled) {
+  background: #4752C4;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
+}
+
+.variantOutline {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+}
+.variantOutline:hover:not(:disabled) {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}

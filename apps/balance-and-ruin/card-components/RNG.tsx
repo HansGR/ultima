@@ -6,8 +6,7 @@ import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 export const RNG = () => {
   return (
     <Card title={"RNG"}>
-      <CardColumn>
-      </CardColumn>
+      <CardColumn></CardColumn>
     </Card>
   );
 };

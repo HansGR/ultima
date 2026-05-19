@@ -27,7 +27,7 @@ export const SotwCard = ({ sotw, sotwId }: Props) => {
   return (
     <div
       className={cx(
-        "flex flex-col gap-3 items-center border-1 p-4 mt-8 card-fancy-gradient"
+        "flex flex-col gap-3 items-center border-1 p-4 mt-8 card-fancy-gradient",
       )}
     >
       <h2 className="px-4 text-2xl font-mono">SotW {sotwId}</h2>

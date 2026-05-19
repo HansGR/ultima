@@ -47,7 +47,7 @@ export const SpriteDraw = ({
       alphaBytes,
       canvas.getContext("2d", { willReadFrequently: true }),
       width * (scale as number),
-      height * (scale as number)
+      height * (scale as number),
     );
   }, [alphaBytes, ref, rgbBytes, scale, variant]);
 

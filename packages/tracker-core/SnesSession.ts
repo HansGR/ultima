@@ -61,7 +61,7 @@ export class SnesSession {
   }
 
   public async send<TQuery extends Query<any>>(
-    query: TQuery
+    query: TQuery,
   ): Promise<QueryResultType<TQuery>> {
     const addrs = query.queryAddress;
     const lengths = query.queryLength;
@@ -99,7 +99,7 @@ export class SnesSession {
     this._isConnected = false;
     try {
       await this._connect(this._client);
-    } catch(err) {
+    } catch (err) {
       console.error("connect error -- retrying with old port", err);
 
       this._client = new ws.w3cwebsocket(wsServerLegacyPort);
@@ -110,12 +110,12 @@ export class SnesSession {
       this.addLogMessage("Loading device list...");
       this._deviceList = await this.getDeviceList();
       this.addLogMessage(
-        `Loaded device list: ${JSON.stringify(this._deviceList)}`
+        `Loaded device list: ${JSON.stringify(this._deviceList)}`,
       );
 
       if (this._deviceList.length > 1) {
         this.addLogMessage(
-          "WARNING: Multiple devices found. Will attempt to use the last registered.. If the attach hangs, restarts client and try again."
+          "WARNING: Multiple devices found. Will attempt to use the last registered.. If the attach hangs, restarts client and try again.",
         );
       }
       this.addLogMessage("Attaching to device");
@@ -194,7 +194,7 @@ export class SnesSession {
         {
           Opcode: "DeviceList",
           Space: "SNES",
-        }
+        },
       )
       .then((resp) => {
         this.logger.debug("Device list: ", resp.Results);
@@ -227,7 +227,7 @@ export class SnesSession {
         Opcode: "Attach",
         Space: "SNES",
         Operands: deviceAttached,
-      }
+      },
     );
 
     await this._attachPromise;
@@ -247,7 +247,7 @@ export class SnesSession {
       {
         Opcode: "Name",
         Operands: [this.name],
-      }
+      },
     );
   }
 
@@ -285,7 +285,7 @@ export class SnesSession {
    */
   public async readRam(
     addressStart: string,
-    blockCount: number
+    blockCount: number,
   ): Promise<Uint8Array> {
     if (!this.sender) {
       throw new Error("No request sender was initialized");
@@ -301,7 +301,7 @@ export class SnesSession {
         {
           Opcode: "GetAddress",
           Operands: [addressVal.toString(16), blockCount.toString(16)],
-        }
+        },
       ) || Promise.reject();
 
     const result = await queue.add(cb);
@@ -312,7 +312,7 @@ export class SnesSession {
   public async writeRom(
     addressStart: string,
     blockCount: number,
-    data: ArrayBuffer
+    data: ArrayBuffer,
   ): Promise<Uint8Array> {
     if (!this.sender) {
       throw new Error("No request sender was initialized");
@@ -330,7 +330,7 @@ export class SnesSession {
           {
             Opcode: "PutAddress",
             Operands: [addressVal.toString(16), blockCount.toString(16)],
-          }
+          },
         ) || Promise.reject()
       );
     };
@@ -342,7 +342,7 @@ export class SnesSession {
     await queue.add(async () => {
       return this.sender?.sendRawNoResponse(
         this._client as ws.w3cwebsocket,
-        data
+        data,
       );
     });
 

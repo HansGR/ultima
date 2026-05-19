@@ -1,0 +1,334 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--bg-app);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--bg-sidebar);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-shrink: 0;
+  overflow-y: auto;
+  transition: background-color 0.3s ease;
+}
+
+.sidebarHeader {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.logoTitle {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.logoSubtitle {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: flex-start;
+  padding: 0.5rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-card);
+  color: var(--bg-sidebar);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: 1px solid var(--border-light);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.tabList {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: 0.25rem;
+  flex-grow: 1;
+}
+
+.tabItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 0 1rem;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  background: transparent;
+  border: none;
+  text-align: left;
+}
+
+.tabItem:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.tabItem[aria-selected="true"] {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 700;
+}
+
+.generateBtn {
+  margin: 0 1rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background-color: white; /* Inverted: White background */
+  color: #3b82f6; /* Inverted: Blue text */
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.generateBtn:hover {
+  background-color: #f3f4f6; /* Slightly off-white hover */
+  transform: translateY(-1px);
+}
+
+.generateBtn[aria-selected="true"] {
+  background-color: #3b82f6; /* Highlights blue when clicked */
+  color: white; /* White text when active */
+  font-weight: 700;
+}
+
+.mainContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.topBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topBarLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.topBarLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-main);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.topBarLink:hover {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.topBarLinkActive {
+  color: #3b82f6 !important;
+  background-color: rgba(59, 130, 246, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.25);
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-app);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  gap: 0.5rem;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  padding-left: 0.5rem;
+}
+
+.pageContainer {
+  padding: 2rem;
+  /* No max-width here — each page's <PageContainer columns={n}> (or the
+     Presets/Generate card for single-panel pages) controls its own width.
+     This wrapper just provides the outer padding and centres the content. */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mobileOnly {
+  display: none !important;
+}
+
+/* Hamburger menu is hidden by default on desktop */
+.hamburgerBtn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-main);
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.hamburgerBtn:hover {
+  background-color: var(--border-light);
+}
+
+/* Close button inside mobile sidebar */
+.closeSidebarBtn {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 60;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+}
+
+/* Backdrop overlay */
+.sidebarBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+}
+
+/* MEDIA QUERIES FOR RESPONSIVENESS */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    left: -260px; /* Completely hidden off-screen */
+    top: 0;
+    z-index: 50;
+    box-shadow: none;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  }
+  
+  .sidebar.sidebarOpen {
+    left: 0;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .hamburgerBtn {
+    display: flex; /* Show hamburger toggle */
+  }
+  
+  .closeSidebarBtn {
+    display: block; /* Show mobile close button */
+  }
+  
+  .topBar {
+    padding: 1rem;
+  }
+  
+  .topBarLinks {
+    display: none; /* Hide navigation links from header on narrow screens */
+  }
+
+  .mobileOnly {
+    display: flex !important;
+  }
+  
+  .searchBar {
+    max-width: 140px;
+  }
+  
+  .pageContainer {
+    padding: 1rem 0.5rem; /* Standard minimal mobile layout spacing */
+  }
+}
+
+@media (max-width: 640px) {
+  .searchBar {
+    display: none; /* Hide search on small screens to leave space for buttons */
+  }
+}

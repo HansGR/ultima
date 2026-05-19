@@ -49,17 +49,17 @@ const initialState: ObjectiveState = {
 
 export const MAX_CONDITION_COUNT = 8;
 export const MAX_OBJECTIVE_COUNT = 25;
-export const DEFAULT_OBJECTIVE_VALUE = "0.0.0";
+export const DEFAULT_OBJECTIVE_VALUE = "2.0.0";
 
 export const alphabet = Array.from(new Array(MAX_OBJECTIVE_COUNT)).map(
-  (_, idx) => String.fromCharCode(97 + idx)
+  (_, idx) => String.fromCharCode(97 + idx),
 );
 
 export const objectiveFlags = alphabet.map((letter) => `-o${letter}`);
 
 export const normalizeObjectivesArr = (objectives: Objective[]) => {
   const ordered = orderBy(Object.values(objectives), ({ letter }) =>
-    letter.charCodeAt(0)
+    letter.charCodeAt(0),
   );
 
   const normalized = ordered.map(
@@ -69,11 +69,11 @@ export const normalizeObjectivesArr = (objectives: Objective[]) => {
 
       const minRequired = Math.max(
         Math.min(minReq ?? 0, logicalConditions.length),
-        0
+        0,
       );
       const maxRequired = Math.max(
         Math.min(maxReq ?? conditions.length, logicalConditions.length),
-        0
+        0,
       );
 
       return {
@@ -83,21 +83,24 @@ export const normalizeObjectivesArr = (objectives: Objective[]) => {
         requiredConditions: [minRequired, maxRequired] as [number, number],
         result,
       };
-    }
+    },
   );
 
   return normalized;
 };
 
 const objectivesToDict = (objectives: Objective[]) => {
-  return objectives.reduce((acc, val) => {
-    acc[val.flag] = val;
-    return acc;
-  }, {} as Record<string, Objective>);
+  return objectives.reduce(
+    (acc, val) => {
+      acc[val.flag] = val;
+      return acc;
+    },
+    {} as Record<string, Objective>,
+  );
 };
 
 export const normalizeObjectives = (
-  objectives: Record<string, Objective>
+  objectives: Record<string, Objective>,
 ): Objective[] => {
   return normalizeObjectivesArr(Object.values(objectives));
 };
@@ -107,15 +110,21 @@ export const objectiveSlice = createSlice({
   initialState,
   reducers: {
     setObjectiveMetadata(state, action: PayloadAction<ObjectiveMetadata>) {
-      const conditionsById = action.payload.conditions.reduce((acc, val) => {
-        acc[val.id] = val;
-        return acc;
-      }, {} as Record<string, RawObjectiveCondition>);
+      const conditionsById = action.payload.conditions.reduce(
+        (acc, val) => {
+          acc[val.id] = val;
+          return acc;
+        },
+        {} as Record<string, RawObjectiveCondition>,
+      );
 
-      const resultsById = action.payload.objectives.reduce((acc, val) => {
-        acc[val.id] = val;
-        return acc;
-      }, {} as Record<string, RawObjectiveResult>);
+      const resultsById = action.payload.objectives.reduce(
+        (acc, val) => {
+          acc[val.id] = val;
+          return acc;
+        },
+        {} as Record<string, RawObjectiveResult>,
+      );
 
       state.metadata = action.payload;
       state.metadataById = {
@@ -190,11 +199,11 @@ export const objectiveSlice = createSlice({
           });
 
           const minConditions = Number.parseInt(
-            hasRange ? values[3] : values[1]
+            hasRange ? values[3] : values[1],
           );
 
           const maxConditions = Number.parseInt(
-            hasRange ? values[4] : values[2]
+            hasRange ? values[4] : values[2],
           );
 
           const { group, id, format_string } =
@@ -223,15 +232,33 @@ export const objectiveSlice = createSlice({
           return {
             ...objective,
           } as Objective;
-        }
+        },
       );
 
-      state.objectives = normalizeObjectivesArr(objectives);
+      let finalObjectives = objectives;
+      // Fallback: if the parsed objectives list is empty, default to ONE objective with "Unlock Final Kefka" (ID 2)
+      if (finalObjectives.length === 0 && state.metadataById.results[2]) {
+        const { group, id, format_string } = state.metadataById.results[2];
+        finalObjectives = [
+          {
+            flag: "-oa",
+            letter: "a",
+            conditions: [],
+            requiredConditions: [0, 0],
+            result: {
+              group,
+              id: id.toString(),
+              label: format_string,
+            },
+          } as Objective,
+        ];
+      }
+      state.objectives = normalizeObjectivesArr(finalObjectives);
       state.objectivesByFlag = objectivesToDict(state.objectives);
     },
     setResultValue(
       state,
-      action: PayloadAction<{ flag: string; value: number[] }>
+      action: PayloadAction<{ flag: string; value: number[] }>,
     ) {
       const objective = {
         ...state.objectivesByFlag[action.payload.flag],
@@ -248,14 +275,15 @@ export const objectiveSlice = createSlice({
           Partial<
             Pick<Objective, "conditions" | "requiredConditions" | "result">
           >
-      >
+      >,
     ) {
       const objectiveCount = Object.keys(state.objectivesByFlag).length;
       if (objectiveCount >= MAX_OBJECTIVE_COUNT) {
         return;
       }
 
-      const { format_string, group, id } = state.metadata.objectives[0];
+      const { format_string, group, id } =
+        state.metadataById.results[2] || state.metadata.objectives[0];
 
       state.objectivesByFlag[action.payload.flag] = {
         conditions: [],

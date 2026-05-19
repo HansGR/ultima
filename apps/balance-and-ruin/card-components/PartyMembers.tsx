@@ -20,7 +20,7 @@ const options = [
       ({
         value: id,
         label: startCase(id),
-      } as FlagSelectOption)
+      }) as FlagSelectOption,
   ),
 ];
 

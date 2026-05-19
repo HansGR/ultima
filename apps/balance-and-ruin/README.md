@@ -34,7 +34,6 @@ pnpm vercel
 
 **NOTE:** The first time running `pnpm vercel` it will want to connect to your repo/project - Sign in using github and connect to the project you created earlier
 
-
 ### Generate static (doesn't require vercel account)
 
 ```

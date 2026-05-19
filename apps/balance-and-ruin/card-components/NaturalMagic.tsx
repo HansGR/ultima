@@ -14,7 +14,7 @@ const [random]: FlagSelectOption[] = [{ value: "random", label: "Random" }];
 
 const excluded = ["gogo", "umaro"];
 const naturalMagicCharacters = characterNames.filter(
-  (c) => !excluded.includes(c)
+  (c) => !excluded.includes(c),
 );
 
 const options: FlagSelectOption[] = [
@@ -24,7 +24,7 @@ const options: FlagSelectOption[] = [
       ({
         value: id,
         label: startCase(id),
-      } as FlagSelectOption)
+      }) as FlagSelectOption,
   ),
 ];
 
@@ -57,19 +57,7 @@ export const NaturalMagic = () => {
         <Divider />
         <Deprecated>
           <FlagSwitch flag="-nmmi" label="Menu Indicator" />
-          <Divider />
         </Deprecated>
-
-        <FlagSwitch
-          flag="-scan"
-          helperText="All characters start with the Scan spell learned. Scan costs 0 MP. All enemies are scannable"
-          label="Scan All"
-        />
-        <FlagSwitch
-          flag="-warp"
-          helperText="All characters start with the Warp spell learned. Warp costs 0 MP."
-          label="Warp All"
-        />
       </CardColumn>
     </Card>
   );

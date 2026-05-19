@@ -25,7 +25,7 @@ const tabStyles = cva(
     defaultVariants: {
       selected: false,
     },
-  }
+  },
 );
 
 const tabUndercarriageStyles = cva(["absolute inset-x-0 bottom-0 h-0.5"], {

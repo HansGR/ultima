@@ -10,9 +10,9 @@ const styles = cva("", {
   variants: {
     variant: {
       default: [
-        "focus-visible:shadow-input-focus focus-visible:border-inputs-focus focus-visible:outline-none",
-        "border-inputs-border border-1",
-        "bg-inputs-background dark:bg-transparent",
+        "focus-visible:shadow-input-focus focus-visible:border-blue-400 focus-visible:outline-none",
+        "border-inputs-border border-1 rounded",
+        "bg-white text-black",
         "px-2 py-1",
         "text-sm",
       ],
@@ -36,7 +36,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
       />
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

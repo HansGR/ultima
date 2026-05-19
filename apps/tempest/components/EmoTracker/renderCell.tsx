@@ -15,7 +15,7 @@ export function RenderCell(
     min?: number;
     max?: number;
     value?: number;
-  }
+  },
 ): JSX.Element {
   const { onClick, onRightClick } = useTrackerContext();
 
@@ -63,8 +63,8 @@ export function RenderCell(
       typeof opts?.value === "number"
         ? opts?.value
         : opts?.value === true
-        ? 1
-        : 0;
+          ? 1
+          : 0;
     if (opts && v === opts?.max && isUp) {
       return;
     }

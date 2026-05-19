@@ -27,12 +27,8 @@ export type DualFlagSliderProps = {
   bText: string;
 } & SliderProps<number[]>;
 
-export const NumberSlider = ({
-  ...rest
-}: SliderProps<number>) => {
-  return (
-  <Slider {...rest} />
-  );
+export const NumberSlider = ({ ...rest }: SliderProps<number>) => {
+  return <Slider {...rest} />;
 };
 
 export const DualFlagSlider = ({
@@ -68,7 +64,7 @@ export const DualFlagSlider = ({
       setFlag({
         flag: flag,
         value: val,
-      })
+      }),
     );
   };
 
@@ -78,10 +74,10 @@ export const DualFlagSlider = ({
 
   const [aVal, bVal] = value || [];
   const min = (
-    hardMin ?? allowedValues.length ? first(allowedValues) : schemaMin ?? 0
+    (hardMin ?? allowedValues.length) ? first(allowedValues) : (schemaMin ?? 0)
   ) as number;
   const max = (
-    hardMax ?? allowedValues.length ? last(allowedValues) : schemaMax ?? 100
+    (hardMax ?? allowedValues.length) ? last(allowedValues) : (schemaMax ?? 100)
   ) as number;
 
   const step = hardStep ?? schemaStep ?? 1;
@@ -90,29 +86,25 @@ export const DualFlagSlider = ({
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   const description = hardDescription ?? schemaDescription;
-  const renderDescription = (
-    template: React.ReactNode,
-    value: FlagValue
-  ) => {
+  const renderDescription = (template: React.ReactNode, value: FlagValue) => {
     if (typeof template !== "string") {
       return template;
     }
     if (Array.isArray(value)) {
-      return Mustache.render(template, {"a": value?.[0] ?? min, "b": value?.[1] ?? min});
+      return Mustache.render(template, {
+        a: value?.[0] ?? min,
+        b: value?.[1] ?? min,
+      });
     }
     return template;
   };
 
-  const onAChange = (
-    val: number
-  ) => {
-    onChange([val, value?.[1] as number ?? min])
+  const onAChange = (val: number) => {
+    onChange([val, (value?.[1] as number) ?? min]);
   };
 
-  const onBChange = (
-    val: number
-  ) => { 
-    onChange([value?.[0] ?? min, val])
+  const onBChange = (val: number) => {
+    onChange([value?.[0] ?? min, val]);
   };
   const helperText = renderDescription(description, value ?? defaults);
 
@@ -125,7 +117,7 @@ export const DualFlagSlider = ({
           label={label}
         />
         <div className={"flex items-center justify-center flex-shrink gap-1"}>
-        <Input
+          <Input
             className={"max-w-[80px]"}
             ref={aRef}
             min={min}
@@ -157,7 +149,7 @@ export const DualFlagSlider = ({
         <NumberSlider
           onChange={(val) => onAChange(val)}
           defaultValue={value?.[0] ?? min}
-          value={value?.[0] as number ??  min}
+          value={(value?.[0] as number) ?? min}
           min={min}
           max={max}
           step={step}
@@ -166,7 +158,7 @@ export const DualFlagSlider = ({
         <NumberSlider
           onChange={(val) => onBChange(val)}
           defaultValue={value?.[1] ?? min}
-          value={value?.[1] as number ?? min}
+          value={(value?.[1] as number) ?? min}
           min={min}
           max={max}
           step={step}

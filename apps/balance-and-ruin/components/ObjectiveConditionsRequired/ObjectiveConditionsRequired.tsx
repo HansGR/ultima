@@ -18,6 +18,7 @@ export const ObjectiveConditionsRequired = ({
   const { conditions, requiredConditions } = objective;
   const [minVal, maxVal] = requiredConditions;
   const max = conditions.filter(isValidCondition).length;
+
   const onRequirementsChange = (newRequirement: number[]) => {
     onChange({
       ...objective,
@@ -32,7 +33,7 @@ export const ObjectiveConditionsRequired = ({
           label="Required Conditions"
           helperText={renderDescription(
             "{{ . }} conditions must be complete to receive the reward",
-            [minVal, maxVal]
+            [minVal, maxVal],
           )}
         />
       </div>

@@ -61,7 +61,7 @@ export const FlagNumberInput = ({
       setFlag({
         flag,
         value,
-      })
+      }),
     );
   };
 
@@ -72,7 +72,7 @@ export const FlagNumberInput = ({
           flag={flag}
           helperText={renderDescription(
             hardDescription ?? schemaDescription,
-            value
+            value,
           )}
           label={label}
         />

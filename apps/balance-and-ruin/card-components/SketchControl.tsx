@@ -12,7 +12,6 @@ export const SketchControl = () => {
           helperText="When enabled, Sketch and Control commands have 100% accuracy, and use the caster's stats instead of the enemy's"
           label="Improved Sketch/Control"
         />
-        <Divider />
         <FlagSwitch
           flag="-fs"
           invert

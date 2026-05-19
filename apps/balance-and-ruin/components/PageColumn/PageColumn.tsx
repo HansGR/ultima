@@ -11,7 +11,7 @@ export const PageColumn = ({ children, className }: PageColumnProps) => {
       className={cx(
         "WC-PageColumn",
         className,
-        "col-span-8 lg:col-span-4 inline-block h-fit w-full"
+        "col-span-8 lg:col-span-4 inline-block h-fit w-full",
       )}
     >
       {children}

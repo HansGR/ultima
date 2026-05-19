@@ -12,10 +12,12 @@ import { Card } from "@ff6wc/ui";
 import orderBy from "lodash/orderBy";
 import { useId, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import BaseSelect from "react-select";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
+import {
+  Select as CustomSelect,
+  SelectOption,
+} from "~/components/Select/Select";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
@@ -23,7 +25,7 @@ const nonExcludable = [FIGHT, LEAP];
 
 const rawOptions = Object.values(ALL_COMMANDS).filter(
   ({ value }) =>
-    !hoistedOptions.includes(value) && !nonExcludable.includes(value)
+    !hoistedOptions.includes(value) && !nonExcludable.includes(value),
 );
 
 const allOptions: CommandOption[] = [
@@ -43,8 +45,11 @@ const useExcludedCommands = () => {
   const rec5 = useFlagValueSelector("-rec5");
   const rec6 = useFlagValueSelector("-rec6");
   return useMemo(
-    () => [rec1, rec2, rec3, rec4, rec5, rec6].filter((val) => val !== NONE),
-    [rec1, rec2, rec3, rec4, rec5, rec6]
+    () =>
+      [rec1, rec2, rec3, rec4, rec5, rec6]
+        .map(Number)
+        .filter((val) => val !== NONE),
+    [rec1, rec2, rec3, rec4, rec5, rec6],
   );
 };
 
@@ -53,43 +58,50 @@ export const ExcludeSelect = ({ flag }: ExcludeSelectProps) => {
   const dispatch = useDispatch();
   const id = useId();
   const value = useFlagValueSelector<number>(flag);
-  const selectedOption = useMemo(
-    () => allOptions.find(({ value: id }) => id === value) ?? NONE_OPTION,
-    [value]
-  );
-  const onChange = (val: CommandOption | null) => {
+
+  const selectOptions = useMemo(() => {
+    const currentValue = Number(value ?? NONE);
+    return allOptions
+      .filter(({ value: id }) => id === currentValue || !excludedValues.includes(id))
+      .map((opt) => ({
+        label: opt.label,
+        value: opt.value.toString(),
+      }));
+  }, [excludedValues, value]);
+
+  const currentSelectValue = useMemo(() => {
+    const activeVal = Number(value ?? NONE);
+    return (
+      selectOptions.find((opt) => Number(opt.value) === activeVal) ?? {
+        label: NONE_OPTION.label,
+        value: NONE_OPTION.value.toString(),
+      }
+    );
+  }, [selectOptions, value]);
+
+  const onChange = (val: SelectOption | null) => {
     dispatch(
       setFlag({
         flag,
-        value: val?.value ?? null,
-      })
+        value: val ? Number(val.value) : null,
+      }),
     );
   };
 
-  const options = useMemo(
-    () => allOptions.filter(({ value: id }) => !excludedValues.includes(id)),
-    [excludedValues]
-  );
-
   return (
-    <BaseSelect
-      className="ff6wc-select-container"
-      classNamePrefix="ff6wc-select"
-      components={{ Option: FlagSelectOption }}
-      instanceId={id}
-      getOptionLabel={(option) => option.label}
-      getOptionValue={(option: CommandOption) => option.value.toString()}
-      options={options}
-      onChange={(val) => onChange(val)}
-      value={selectedOption}
+    <CustomSelect
+      options={selectOptions}
+      onChange={onChange}
+      value={currentSelectValue}
     />
   );
 };
+
 export const CommandsExcluded = () => {
   return (
     <Card title={"Excluded"}>
-      <CardColumn>
-        <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-4">
+        <div className="col-span-full">
           <FlagLabel
             flag="-rec1"
             helperText={
@@ -97,14 +109,16 @@ export const CommandsExcluded = () => {
             }
             label={"Excluded Commands"}
           />
-          <ExcludeSelect flag="-rec1" />
         </div>
-        <ExcludeSelect flag="-rec2" />
-        <ExcludeSelect flag="-rec3" />
-        <ExcludeSelect flag="-rec4" />
-        <ExcludeSelect flag="-rec5" />
-        <ExcludeSelect flag="-rec6" />
-      </CardColumn>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ExcludeSelect flag="-rec1" />
+          <ExcludeSelect flag="-rec2" />
+          <ExcludeSelect flag="-rec3" />
+          <ExcludeSelect flag="-rec4" />
+          <ExcludeSelect flag="-rec5" />
+          <ExcludeSelect flag="-rec6" />
+        </div>
+      </div>
     </Card>
   );
 };

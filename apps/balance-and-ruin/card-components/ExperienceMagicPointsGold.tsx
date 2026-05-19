@@ -25,12 +25,14 @@ export const ExperienceMagicPointsGold = () => {
           label="Gold Multiplier"
           type="int"
         />
-        <FlagSwitch
-          helperText="When enabled, experience will be split evenly amongst surviving party members."
-          flag="-nxppd"
-          invert
-          label="Split Party Exp"
-        />
+        <div className="mt-2">
+          <FlagSwitch
+            helperText="When enabled, experience will be split evenly amongst surviving party members."
+            flag="-nxppd"
+            invert
+            label="Split Party Exp"
+          />
+        </div>
         <FlagSwitch flag="-be" label="Boss Experience" />
       </CardColumn>
     </Card>

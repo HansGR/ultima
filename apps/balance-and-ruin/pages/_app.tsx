@@ -7,6 +7,7 @@ import { AppType } from "next/app";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
+
 import { Schema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import "~/styles/globals.css";
@@ -35,7 +36,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
     <div
       className={cx(
         openSans.className,
-        "text-grey dark:text-white flex flex-col h-full"
+        "text-grey dark:text-white flex flex-col h-full",
       )}
     >
       <Provider store={store}>

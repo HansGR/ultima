@@ -3,5 +3,9 @@ export type CardColumnProps = {
 };
 
 export const CardColumn = ({ children }: CardColumnProps) => {
-  return <div className={"flex flex-col gap-4"}>{children}</div>;
+  return (
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-x-8 gap-y-4 w-full [&>hr]:col-span-full [&>.col-span-full]:col-span-full">
+      {children}
+    </div>
+  );
 };

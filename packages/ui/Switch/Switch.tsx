@@ -3,30 +3,32 @@ import { cva } from "cva";
 
 const switchStyles = cva(
   [
-    "relative inline-flex h-3 w-8 items-center border-1",
+    "relative inline-flex h-4 w-8 items-center border-1 rounded-full transition-colors duration-200",
     "focus-visible:shadow-switch-focus",
     "focus-visible:outline-1 outline-black",
   ],
   {
     variants: {
       checked: {
-        true: "bg-blue-600 border-blue-600 dark:border-gray-600",
+        true: "bg-blue-400 border-blue-400",
         false: "bg-inputs-background border-inputs-border",
       },
     },
-  }
+  },
 );
 
 const buttonStyles = cva(
-  ["inline-block h-4 w-4 transform bg-black transition"],
+  [
+    "inline-block h-5 w-5 transform transition-transform transition-colors duration-200 rounded-full shadow-sm border-2",
+  ],
   {
     variants: {
       checked: {
-        true: "translate-x-4 bg-black",
-        false: "translate-x-0 bg-zinc-400",
+        true: "translate-x-4 bg-white border-blue-400",
+        false: "translate-x-0 bg-zinc-400 border-zinc-400",
       },
     },
-  }
+  },
 );
 
 export type SwitchProps = {

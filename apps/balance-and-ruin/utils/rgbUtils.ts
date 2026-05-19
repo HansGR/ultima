@@ -4,7 +4,7 @@ export function scale_rgb(
   rgb_data: number[],
   scale: number,
   width: number,
-  height: number
+  height: number,
 ) {
   const result = [];
   for (let y = 0; y < height; y++) {
@@ -27,7 +27,7 @@ export function draw_rgb(
   alpha_color: number[],
   context: CanvasRenderingContext2D | null,
   width: number,
-  height: number
+  height: number,
 ) {
   if (!context) {
     return;

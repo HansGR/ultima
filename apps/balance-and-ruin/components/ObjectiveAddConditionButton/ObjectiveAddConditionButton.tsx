@@ -1,4 +1,5 @@
 import { Button } from "@ff6wc/ui";
+import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
@@ -53,7 +54,7 @@ export const ObjectiveAddConditionButton = ({
       setFlag({
         flag,
         value: objectiveToString(newObjective),
-      })
+      }),
     );
   };
 
@@ -63,9 +64,16 @@ export const ObjectiveAddConditionButton = ({
       disabled={objective.conditions.length >= MAX_CONDITION_COUNT}
       onClick={addObjectiveCondition}
       size="small"
-      variant="primary"
+      variant="default"
+      title="Add Condition"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "0.4rem",
+      }}
     >
-      Add Condition
+      <FaPlus size={13} />
     </Button>
   );
 };

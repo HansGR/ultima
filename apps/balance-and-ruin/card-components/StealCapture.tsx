@@ -30,12 +30,13 @@ const stealDropOptions: SubflagOption[] = [
   {
     defaultValue: 10,
     flag: "-ssd",
-    helperText: "Shuffle Items Stolen and Dropped with given percent randomized",
+    helperText:
+      "Shuffle Items Stolen and Dropped with given percent randomized",
     label: "Shuffle + Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-ssd" helperText="" label={children} />
     ),
-  }
+  },
 ];
 
 export const StealCapture = () => {
@@ -64,6 +65,18 @@ export const StealCapture = () => {
             label: "Original",
           }}
           label="Steals & Drops"
+        />
+
+        <FlagSlider
+          flag="-ss"
+          label="Shuffle Stolen Items"
+          helperText="Shuffle items stolen with randomized percent"
+        />
+
+        <FlagSlider
+          flag="-sd"
+          label="Shuffle Dropped Items"
+          helperText="Shuffle items dropped with randomized percent"
         />
       </CardColumn>
     </Card>

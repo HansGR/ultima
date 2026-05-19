@@ -1,7 +1,6 @@
 import { Link } from "../Link/Link";
 import { montserrat } from "@ff6wc/utils/fonts";
-import { buttonStyles } from "../Button/Button";
-import { VariantProps } from "cva";
+import { buttonStyles, ButtonProps } from "../Button/Button";
 
 export const ButtonLink = ({
   children,
@@ -12,7 +11,7 @@ export const ButtonLink = ({
   children: React.ReactNode;
   className?: string;
   href: string;
-  variant?: VariantProps<typeof buttonStyles>["variant"];
+  variant?: ButtonProps["variant"];
 }) => {
   return (
     <Link

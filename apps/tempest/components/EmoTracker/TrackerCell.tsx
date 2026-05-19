@@ -46,7 +46,7 @@ export function TrackerCell(props: Props): JSX.Element {
     const className = cx(
       !isAvailable ? "gated-cell" : "",
       !isComplete ? "inactive-cell" : "",
-      isComplete ? "complete-cell" : ""
+      isComplete ? "complete-cell" : "",
     );
 
     const render = (
@@ -68,11 +68,11 @@ export function TrackerCell(props: Props): JSX.Element {
       cx(
         !isAvailable ? "gated-cell" : "",
         !completed ? "inactive-cell" : "",
-        completed ? "complete-cell" : ""
+        completed ? "complete-cell" : "",
       ),
       "",
       null,
-      { min: 0, max: 1, value: value as number }
+      { min: 0, max: 1, value: value as number },
     );
   } else if (cell instanceof LayoutNumberCell) {
     const [
@@ -91,7 +91,7 @@ export function TrackerCell(props: Props): JSX.Element {
     const className = cx(
       !isAvailable ? "gated-cell" : "",
       !active ? "inactive-cell" : "",
-      active ? "complete-cell" : ""
+      active ? "complete-cell" : "",
     );
 
     const adornmentValue = value;
@@ -103,7 +103,7 @@ export function TrackerCell(props: Props): JSX.Element {
               montserrat.className,
               "overlay-content flex",
               "text-sm sm:text-lg",
-              "font-mono"
+              "font-mono",
             )}
           >
             <span className={cx(className)} style={{ lineHeight: "22px" }}>

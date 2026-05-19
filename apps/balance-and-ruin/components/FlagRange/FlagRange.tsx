@@ -20,6 +20,7 @@ export type FlagRangeProps = {
   flag: string;
   label: React.ReactNode;
   type?: "percent";
+  hideFlag?: boolean;
 } & SliderProps<number[]>;
 
 export const FlagRange = ({
@@ -28,6 +29,10 @@ export const FlagRange = ({
   helperText: hardDescription,
   label,
   type,
+  hideFlag,
+  min: hardMin,
+  max: hardMax,
+  step: hardStep,
   ...rest
 }: FlagRangeProps) => {
   const minRef = useRef<HTMLInputElement>(null);
@@ -49,7 +54,7 @@ export const FlagRange = ({
       setFlag({
         flag: flag,
         value: val,
-      })
+      }),
     );
   };
 
@@ -58,13 +63,13 @@ export const FlagRange = ({
   };
 
   const [minVal, maxVal] = value || [];
-  const min = (
-    allowedValues.length ? allowedValues[0] : schemaMin ?? 0
-  ) as number;
-  const max = (
-    allowedValues.length ? last(allowedValues) : schemaMax ?? 100
-  ) as number;
-  const step = 1;
+  const min = (hardMin ??
+    (allowedValues.length ? allowedValues[0] : (schemaMin ?? 0))) as number;
+  const max = (hardMax ??
+    (allowedValues.length
+      ? last(allowedValues)
+      : (schemaMax ?? 100))) as number;
+  const step = hardStep ?? schemaStep ?? 1;
 
   const defaultValue = useSelector(selectDefaultValue(flag));
 
@@ -75,17 +80,18 @@ export const FlagRange = ({
 
   return (
     <div className={"flex flex-col gap-2"}>
-      <div className={"flex justify-between items-center gap-4"}>
+      <div className={"flex justify-between items-center gap-3"}>
         <div className="w-full">
           <FlagLabel
             flag={flag}
             helperText={helperText ?? description}
             label={label}
+            hideFlag={hideFlag}
           />
         </div>
-        <div className={"flex items-center justify-center flex-shrink gap-1"}>
+        <div className={"flex items-center justify-center flex-shrink-0 gap-1"}>
           <Input
-            className={"max-w-[80px]"}
+            className={"max-w-[64px] text-center"}
             ref={minRef}
             min={min}
             max={max}
@@ -98,7 +104,7 @@ export const FlagRange = ({
           />
           <span className={"flex-shrink font-semibold"}>-</span>
           <Input
-            className={"max-w-[80px]"}
+            className={"max-w-[64px] text-center"}
             ref={maxRef}
             min={min}
             max={max}

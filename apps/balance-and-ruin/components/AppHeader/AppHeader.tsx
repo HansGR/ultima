@@ -2,6 +2,7 @@ import { ButtonLink, DiscordButton, Header } from "@ff6wc/ui";
 import { HiPencil } from "react-icons/hi";
 import { WIKI_URL } from "~/../../packages/utils/constants";
 import { SotwButton } from "~/components/SotwButton/SotwButton";
+import { EventsButton } from "~/components/EventsButton/EventsButton";
 
 export type AppHeaderProps = Record<string, unknown>;
 
@@ -12,6 +13,7 @@ export const AppHeader = (props: AppHeaderProps) => {
         {/* <div className="flex gap-3 flex-wrap justify-center"></div> */}
       </Header>
       <div className=".WC-nav flex flex-wrap justify-center items-center gap-4 p-5 bg-zinc-800">
+        <EventsButton />
         <SotwButton />
         <DiscordButton />
         <ButtonLink

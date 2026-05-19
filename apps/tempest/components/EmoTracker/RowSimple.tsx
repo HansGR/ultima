@@ -20,7 +20,7 @@ const characters = new LayoutNumberCell(
   {
     min: 1,
     max: 14,
-  }
+  },
 );
 
 const espers = new LayoutNumberCell(
@@ -32,7 +32,7 @@ const espers = new LayoutNumberCell(
   undefined,
   {
     max: 27,
-  }
+  },
 );
 
 const dragons = new LayoutNumberCell(
@@ -44,7 +44,7 @@ const dragons = new LayoutNumberCell(
       : Object.values(dragons).filter((z) => !!z).length;
   },
   undefined,
-  { max: 8 }
+  { max: 8 },
 );
 
 const bosses = new LayoutNumberCell(
@@ -52,7 +52,7 @@ const bosses = new LayoutNumberCell(
   "bossCount",
   ({ bossCount }) => bossCount,
   undefined,
-  { max: 100 }
+  { max: 100 },
 );
 const checks = new LayoutNumberCell(
   "checkCount",
@@ -63,7 +63,7 @@ const checks = new LayoutNumberCell(
       : Object.values({ ...events, ...dragons }).filter((z) => !!z).length;
   },
   undefined,
-  { max: 100 }
+  { max: 100 },
 );
 const chests = new LayoutNumberCell(
   "chestCount",
@@ -72,7 +72,7 @@ const chests = new LayoutNumberCell(
   undefined,
   {
     max: 255,
-  }
+  },
 );
 
 const group = new LayoutGroup("group1", "", [characters, espers, dragons]);

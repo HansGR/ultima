@@ -2,7 +2,7 @@ import { Objective, RawObjectiveResult } from "~/types/objectives";
 
 export const createObjective = (
   old: Objective,
-  newMeta: RawObjectiveResult
+  newMeta: RawObjectiveResult,
 ) => {
   const { name, group, id } = newMeta;
 

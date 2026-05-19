@@ -1,4 +1,5 @@
 import { Button } from "@ff6wc/ui";
+import { FaCopy } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
@@ -41,7 +42,7 @@ export const ObjectiveCloneButton = ({ objective }: ObjectiveCardProps) => {
       setFlag({
         flag,
         value: objectiveToString(newObjective),
-      })
+      }),
     );
   };
 
@@ -50,9 +51,16 @@ export const ObjectiveCloneButton = ({ objective }: ObjectiveCardProps) => {
       disabled={objectives.length >= MAX_OBJECTIVE_COUNT}
       onClick={clone}
       size="small"
-      variant="primary"
+      variant="default"
+      title="Clone Objective"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "0.4rem",
+      }}
     >
-      Clone Objective
+      <FaCopy size={13} />
     </Button>
   );
 };

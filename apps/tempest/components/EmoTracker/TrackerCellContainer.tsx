@@ -1,7 +1,7 @@
 import React from "react";
 
 const TrackerCellContainer: React.FC<React.ComponentProps<"span">> = (
-  props
+  props,
 ) => {
   return <span {...props} />;
 };

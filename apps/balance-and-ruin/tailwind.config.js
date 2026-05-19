@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./card-components/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",

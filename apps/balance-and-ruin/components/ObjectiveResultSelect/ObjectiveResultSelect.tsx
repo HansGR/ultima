@@ -1,37 +1,21 @@
 import groupBy from "lodash/groupBy";
 import { useId, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import BaseSelect, { Props, SingleValue } from "react-select";
+import { useSelector } from "react-redux";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
+import {
+  Select as CustomSelect,
+  SelectOption,
+  SelectGroup,
+} from "~/components/Select/Select";
 import { useFlagValueSelector } from "~/state/flagSlice";
-import {
-  selectObjectiveResultMetadata,
-  selectObjectiveResultMetadataById,
-} from "~/state/objectiveSlice";
-import {
-  ObjectiveGroup,
-  ObjectiveResult,
-  RawObjectiveResult,
-} from "~/types/objectives";
+import { selectObjectiveResultMetadata } from "~/state/objectiveSlice";
+import { ObjectiveResult, RawObjectiveResult } from "~/types/objectives";
 
 type ObjectiveCardProps = {
   flag: string;
-  onChange: (val: SingleValue<ObjectiveResult>) => any;
+  onChange: (val: ObjectiveResult | null) => any;
 };
 
-type ObjectiveFilter = Props<
-  ObjectiveResult,
-  false,
-  ObjectiveGroup
->["filterOption"];
-
-/*
-   Objective String:
-    0.2.2.2.7.7.4.10.10
-
-    resultId.conditionMin.conditionMax.conditonOneId.conditionOneValue1.conditionValue2.conditionTwoValue1.conditionTwoValue2, etc.
- */
 const useResultOptions = (results: RawObjectiveResult[]) => {
   return useMemo<ObjectiveResult[]>(
     () =>
@@ -40,7 +24,7 @@ const useResultOptions = (results: RawObjectiveResult[]) => {
         id: id.toString(),
         label: format_string.replace("{{ . }}", ""),
       })),
-    [results]
+    [results],
   );
 };
 
@@ -57,56 +41,19 @@ export const ObjectiveResultSelect = ({
 
   const resultsById = useMemo(
     () =>
-      results.reduce((acc, result) => {
-        acc[result.id] = resultMetadata.find(
-          ({ id }) => id.toString() === result.id
-        );
-        return acc;
-      }, {} as Record<string | number, RawObjectiveResult | undefined>),
-    [resultMetadata, results]
+      results.reduce(
+        (acc, result) => {
+          acc[result.id] = resultMetadata.find(
+            ({ id }) => id.toString() === result.id,
+          );
+          return acc;
+        },
+        {} as Record<string | number, RawObjectiveResult | undefined>,
+      ),
+    [resultMetadata, results],
   );
-
-  const resultOptionsById = results.reduce((acc, result) => {
-    acc[result.id] = result;
-    return acc;
-  }, {} as Record<string | number, ObjectiveResult | undefined>);
-
-  const selectedObjective = resultOptionsById[resultId];
 
   const id = useId();
-
-  const resultsByGroup = groupBy(results, (i) => i.group);
-
-  const groupOptions = Object.entries(resultsByGroup).map<ObjectiveGroup>(
-    ([key, results], idx) => {
-      return {
-        label: key,
-        options: results,
-      };
-    }
-  );
-
-  const filterOption: ObjectiveFilter = ({ label, data, value }, needle) => {
-    // default search
-    if (label.includes(needle) || value.includes(needle)) return true;
-
-    // check if a group as the filter string as label
-    const groupedOptions = groupOptions.filter((group) =>
-      group.label.toLocaleLowerCase().includes(needle)
-    );
-
-    if (groupOptions) {
-      for (const groupOption of groupedOptions) {
-        // Check if current option is in group
-        const option = groupOption.options.find((opt) => opt.id === value);
-        if (option) {
-          return true;
-        }
-      }
-    }
-
-    return label.toLowerCase().includes(needle.toLowerCase());
-  };
 
   const getOptionLabel = (option: ObjectiveResult) => {
     const label = `${resultsById[option.id]?.name}`;
@@ -116,22 +63,65 @@ export const ObjectiveResultSelect = ({
     return label === "Random" ? "Random" : `Random (${option.group})`;
   };
 
+  // Construct groups matching SelectGroup schema for CustomSelect
+  const groupOptions = useMemo<SelectGroup[]>(() => {
+    const resultsByGroup = groupBy(results, (i) => i.group);
+    return Object.entries(resultsByGroup).map(([groupName, groupResults]) => {
+      return {
+        label: groupName,
+        options: groupResults.map(
+          (res) =>
+            ({
+              ...res,
+              value: res.id,
+              label: getOptionLabel(res),
+            }) as SelectOption,
+        ),
+      };
+    });
+  }, [results, resultsById]);
+
+  const activeSelectValue = useMemo(() => {
+    for (const group of groupOptions) {
+      const found = group.options.find((opt) => opt.value === resultId);
+      if (found) return found;
+    }
+    return null;
+  }, [groupOptions, resultId]);
+
+  // Search filter matching legacy filterOption
+  const filterOption = (opt: SelectOption, needle: string) => {
+    const query = needle.trim().toLowerCase();
+    if (!query) return true;
+
+    const label = opt.label.toLowerCase();
+    const val = opt.value.toLowerCase();
+    const grp = (opt.group || "").toLowerCase();
+
+    return label.includes(query) || val.includes(query) || grp.includes(query);
+  };
+
   return (
     <div key={id}>
       <div>
         <FlagLabel flag={flag} helperText="" label="Result" />
       </div>
-      <BaseSelect
-        className="ff6wc-select-container"
-        classNamePrefix="ff6wc-select"
-        components={{ Option: FlagSelectOption }}
+      <CustomSelect
+        isSearchable
         filterOption={filterOption}
-        instanceId={id}
-        getOptionLabel={getOptionLabel}
-        getOptionValue={(option) => option.id.toString()}
         options={groupOptions}
-        onChange={(val) => onChange(val)}
-        value={selectedObjective}
+        onChange={(selected) => {
+          if (!selected) {
+            onChange(null);
+            return;
+          }
+          // Return back legacy format
+          const original = results.find((r) => r.id === selected.value);
+          if (original) {
+            onChange(original);
+          }
+        }}
+        value={activeSelectValue}
       />
     </div>
   );

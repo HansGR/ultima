@@ -33,7 +33,7 @@ export default function SpriteDrawLoad({
 }: SpriteDrawLoadProps) {
   const { data, error } = useSWRImmutable<LoadSpriteResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/api/sprite/${spriteId}/${paletteId}/${poseId}`,
-    fetcher
+    fetcher,
   );
 
   const { alphaBytes, rgbBytes } = React.useMemo(() => {

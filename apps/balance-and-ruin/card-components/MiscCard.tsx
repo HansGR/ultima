@@ -25,6 +25,9 @@ const timerOptions: SubflagOption[] = [
     isStatic: true,
   },
 ];
+const YNPC_HELPER =
+  "Pressing the Y button while next to NPCs has various effects";
+
 const yNpcOptions: SubflagOption[] = [
   {
     flag: "-ymascot",
@@ -96,31 +99,40 @@ const yNpcOptions: SubflagOption[] = [
     helperText: "",
     isStatic: true,
   },
-];
+].map((opt) => ({ ...opt, helperText: YNPC_HELPER }));
 
 export const MiscCard = () => {
   return (
     <Card title={"Other"}>
-      <CardColumn>
-        <FlagSubflagSelect
-          nullable={{ description: "", label: "None" }}
-          label="Y NPC"
-          options={yNpcOptions}
-        />
+      <div className="flex flex-col gap-6 h-full">
+        {/* Row 1: The Dropdowns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FlagSubflagSelect
+            nullable={{ description: YNPC_HELPER, label: "None" }}
+            label="Y NPC"
+            options={yNpcOptions}
+          />
 
-        <FlagSubflagSelect
-          label="Event Timers"
-          options={timerOptions}
-          nullable={{
-            description:
-              "Collapsing House, Opera House, and Floating Continent timers unmodified",
-            label: "Original",
-          }}
-        />
-        <FlagSwitch flag="-ond" label="Original Name Display" />
+          <FlagSubflagSelect
+            label="Event Timers"
+            options={timerOptions}
+            nullable={{
+              description:
+                "Collapsing House, Opera House, and Floating Continent timers unmodified",
+              label: "Original",
+            }}
+          />
+        </div>
 
-        <FlagSwitch flag="-npctips" label="NPC Tips" />
-      </CardColumn>
+        {/* Divider line */}
+        <div className="border-t border-white/10" />
+
+        {/* Row 2: The Switches */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-auto">
+          <FlagSwitch flag="-ond" label="Original Name Display" />
+          <FlagSwitch flag="-npctips" label="NPC Tips" />
+        </div>
+      </div>
     </Card>
   );
 };

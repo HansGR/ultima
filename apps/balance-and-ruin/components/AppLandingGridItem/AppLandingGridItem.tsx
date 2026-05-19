@@ -11,7 +11,7 @@ export const AppLandingGridItem = ({ children, className, title }: Props) => {
     <div
       className={cx(
         "h-full w-full items-center mb-3 flex flex-col px-4 py-2 bg-gray-800 mx-auto",
-        className
+        className,
       )}
     >
       <h2
@@ -19,7 +19,7 @@ export const AppLandingGridItem = ({ children, className, title }: Props) => {
           openSans.className,
           "py-2",
           "main-header-text",
-          "text-3xl lg:text-4xl"
+          "text-3xl lg:text-4xl",
         )}
       >
         {title}

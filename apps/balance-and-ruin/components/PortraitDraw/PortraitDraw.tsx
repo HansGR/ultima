@@ -29,7 +29,7 @@ export const PortraitDraw = ({
       alphaBytes,
       canvas.getContext("2d", { willReadFrequently: true }),
       width * scale,
-      height * scale
+      height * scale,
     );
   }, [alphaBytes, ref, rgbBytes, scale]);
 

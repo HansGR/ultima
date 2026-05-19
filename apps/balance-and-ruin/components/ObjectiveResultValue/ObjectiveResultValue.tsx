@@ -52,7 +52,7 @@ export const ObjectiveResultValue = ({
       setResultValue({
         flag: objective.flag,
         value,
-      })
+      }),
     );
 
     const newObjective = createObjective(objective, metadata);
@@ -63,7 +63,7 @@ export const ObjectiveResultValue = ({
       setFlag({
         flag: objective.flag,
         value: newValue,
-      })
+      }),
     );
   };
 

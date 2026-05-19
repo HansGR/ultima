@@ -43,45 +43,48 @@ export const SpritePalettes = ({
         value: id.toString(),
         color: palette,
       })),
-    [paletteDefs]
+    [paletteDefs],
   );
 
   const original = useMemo(
     () => basePaletteOptions.slice(0, 7),
-    [basePaletteOptions]
+    [basePaletteOptions],
   );
   const others = useMemo(
     () =>
       orderBy(
         basePaletteOptions.slice(7, basePaletteOptions.length),
-        (o) => o.label
+        (o) => o.label,
       ),
-    [basePaletteOptions]
+    [basePaletteOptions],
   );
 
   const paletteOptions = useMemo(
     () => [...original, ...others],
-    [original, others]
+    [original, others],
   );
 
-  const palettesById = paletteOptions.reduce((acc, spriteDef) => {
-    acc[spriteDef.value] = spriteDef;
-    return acc;
-  }, {} as Record<string, PaletteSelectOption>);
+  const palettesById = paletteOptions.reduce(
+    (acc, spriteDef) => {
+      acc[spriteDef.value] = spriteDef;
+      return acc;
+    },
+    {} as Record<string, PaletteSelectOption>,
+  );
 
   const paletteIter = Array.from(new Array(7));
 
   const randomize = () => {
     const pal = sampleSize(
       paletteDefs.map(({ id }) => id),
-      paletteIter.length
+      paletteIter.length,
     );
 
     dispatch(
       setFlag({
         flag: "-cpal",
         value: pal.join("."),
-      })
+      }),
     );
   };
 
@@ -90,9 +93,9 @@ export const SpritePalettes = ({
       setFlag({
         flag: "-cpal",
         value: defaultPaletteString,
-      })
+      }),
     );
-  }
+  };
   return (
     <Card title={"Sprite Palettes"}>
       <CardColumn>
@@ -104,10 +107,7 @@ export const SpritePalettes = ({
           >
             Randomize Palettes
           </Button>
-          <Button
-            onClick={restoreDefault}
-            variant="primary"
-          >
+          <Button onClick={restoreDefault} variant="primary">
             Default
           </Button>
         </span>
@@ -130,13 +130,13 @@ export const SpritePalettes = ({
                         paletteValuesBak.splice(
                           idx,
                           1,
-                          Number.parseInt(val.value)
+                          Number.parseInt(val.value),
                         );
                         dispatch(
                           setFlag({
                             flag: "-cpal",
                             value: paletteValuesBak.join("."),
-                          })
+                          }),
                         );
                       }
                     }}

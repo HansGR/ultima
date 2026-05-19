@@ -49,7 +49,7 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
   }
 
   public async onResponse(
-    responses: Array<Buffer>
+    responses: Array<Buffer>,
   ): Promise<GetSaveDataResponse> {
     const [EVENT_WORDS, EVENTS, DRAGONS, CHESTS] = responses;
 
@@ -62,7 +62,7 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
     eventWordsData: Buffer,
     eventsData: Buffer,
     dragonData: Buffer,
-    chestData: Buffer
+    chestData: Buffer,
   ): GetSaveDataResponse {
     // PARSE EVENT WORD DATA
     const characterCount = eventWordsData[CHARACTERS_AVAILABLE * 2];
@@ -74,52 +74,64 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
     // PARSE CHARACTERS FOUND
     const characterIds = Object.keys(CHARACTER_BIT);
     const characterBits = characterIds.map(
-      (char) => CHARACTER_BIT[char as FF6Character]
+      (char) => CHARACTER_BIT[char as FF6Character],
     );
-    const characters = characterIds.reduce((acc, charName, idx) => {
-      const value = characterBits[idx];
-      acc[charName as FF6Character] = !!(
-        eventsData[value.byte] & Math.pow(2, value.bit)
-      );
-      return acc;
-    }, {} as Record<FF6Character, boolean>);
+    const characters = characterIds.reduce(
+      (acc, charName, idx) => {
+        const value = characterBits[idx];
+        acc[charName as FF6Character] = !!(
+          eventsData[value.byte] & Math.pow(2, value.bit)
+        );
+        return acc;
+      },
+      {} as Record<FF6Character, boolean>,
+    );
 
     // PARSE EVENTS COMPLETE
     const eventIds = Object.keys(EVENT_BIT);
     const eventBits = eventIds.map((event) => EVENT_BIT[event as FF6Event]);
-    const events = eventIds.reduce((acc, charName, idx) => {
-      const value = eventBits[idx];
-      acc[charName as FF6Event] = !!(
-        eventsData[value.byte] & Math.pow(2, value.bit)
-      );
-      return acc;
-    }, {} as Record<FF6Event, boolean>);
+    const events = eventIds.reduce(
+      (acc, charName, idx) => {
+        const value = eventBits[idx];
+        acc[charName as FF6Event] = !!(
+          eventsData[value.byte] & Math.pow(2, value.bit)
+        );
+        return acc;
+      },
+      {} as Record<FF6Event, boolean>,
+    );
 
     // PARSE DRAGON EVENTS
     const dragonEventIds = Object.keys(DRAGON_EVENT_BIT);
     const dragonEventBits = dragonEventIds.map(
-      (dragon) => DRAGON_EVENT_BIT[dragon as FF6Dragon]
+      (dragon) => DRAGON_EVENT_BIT[dragon as FF6Dragon],
     );
-    const dragonEvents = dragonEventIds.reduce((acc, dragonEventName, idx) => {
-      const value = dragonEventBits[idx]!;
-      acc[dragonEventName as FF6Dragon] = !!(
-        eventsData[value.byte] & Math.pow(2, value.bit)
-      );
-      return acc;
-    }, {} as Record<FF6Dragon, boolean>);
+    const dragonEvents = dragonEventIds.reduce(
+      (acc, dragonEventName, idx) => {
+        const value = dragonEventBits[idx]!;
+        acc[dragonEventName as FF6Dragon] = !!(
+          eventsData[value.byte] & Math.pow(2, value.bit)
+        );
+        return acc;
+      },
+      {} as Record<FF6Dragon, boolean>,
+    );
 
     // PARSE DRAGON BATTLES
     const dragonIds = Object.keys(DRAGON_BIT);
     const dragonBits = dragonIds.map(
-      (dragon) => DRAGON_BIT[dragon as FF6Dragon]
+      (dragon) => DRAGON_BIT[dragon as FF6Dragon],
     );
-    const dragons = dragonIds.reduce((acc, charName, idx) => {
-      const value = dragonBits[idx]!;
-      acc[charName as FF6Dragon] = !!(
-        dragonData[value.byte] & Math.pow(2, value.bit)
-      );
-      return acc;
-    }, {} as Record<FF6Dragon, boolean>);
+    const dragons = dragonIds.reduce(
+      (acc, charName, idx) => {
+        const value = dragonBits[idx]!;
+        acc[charName as FF6Dragon] = !!(
+          dragonData[value.byte] & Math.pow(2, value.bit)
+        );
+        return acc;
+      },
+      {} as Record<FF6Dragon, boolean>,
+    );
 
     const chestCount = [...chestData].reduce((acc, chestByte) => {
       const bitcount = (byte: number) => {

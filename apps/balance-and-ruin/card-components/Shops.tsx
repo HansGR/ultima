@@ -127,14 +127,18 @@ export const Shops = () => {
           helperText="Increases the base price of Poison, Fire, Ice, Thunder, Gravity, and Pearl Rods"
           label="Expensive Breakable Rods"
         />
-        <Divider />
+        <div className="col-span-full">
+          <Divider />
+        </div>
         <FlagSwitch flag="-snsb" label="No Super Balls" />
         <FlagSwitch
           flag="-sesb"
           helperText="Increases the base price of Super Balls"
           label="Expensive Super Balls"
         />
-        <Divider />
+        <div className="col-span-full">
+          <Divider />
+        </div>
         <Deprecated>
           <FlagSwitch flag="-npi" label="No Priceless Items" />
         </Deprecated>

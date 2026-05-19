@@ -11,7 +11,7 @@ const group = new LayoutGroup("none", "", [
     "tzenThief",
     "tzenThief",
     ({ events }) => events.tzenThief,
-    undefined
+    undefined,
   ),
 
   new LayoutNumberCell(
@@ -23,14 +23,14 @@ const group = new LayoutGroup("none", "", [
     undefined,
     {
       max: 2,
-    }
+    },
   ),
 
   new LayoutCell(
     "kefkaAtNarshe",
     "kefkaAtNarshe",
     ({ events }) => events.kefkaAtNarshe,
-    undefined
+    undefined,
   ),
 
   new LayoutCell("doomGaze", "doomGaze", ({ events }) => events.doomGaze),

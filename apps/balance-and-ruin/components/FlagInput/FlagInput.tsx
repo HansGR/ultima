@@ -9,7 +9,7 @@ import { renderDescription } from "~/utils/renderDescription";
 export type FlagTextInputProps = {
   description?: string;
   flag: string;
-  label: string;
+  label: React.ReactNode;
   placeholder?: string;
 };
 
@@ -33,7 +33,7 @@ export const FlagTextInput = ({
       setFlag({
         flag,
         value: value ? value : null,
-      })
+      }),
     );
   };
 
@@ -44,7 +44,7 @@ export const FlagTextInput = ({
           flag={flag}
           helperText={renderDescription(
             hardDescription ?? schemaDescription,
-            value
+            value,
           )}
           label={label}
         />

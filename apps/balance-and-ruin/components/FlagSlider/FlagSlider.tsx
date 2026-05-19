@@ -21,6 +21,7 @@ export type FlagSliderProps = {
   flag: string;
   helperText?: React.ReactNode;
   label: React.ReactNode;
+  hideFlag?: boolean;
 } & SliderProps<number>;
 
 export const FlagSlider = ({
@@ -31,6 +32,7 @@ export const FlagSlider = ({
   min: hardMin,
   max: hardMax,
   step: hardStep,
+  hideFlag,
   ...rest
 }: FlagSliderProps) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -53,7 +55,7 @@ export const FlagSlider = ({
       setFlag({
         flag: flag,
         value: val,
-      })
+      }),
     );
   };
 
@@ -62,10 +64,10 @@ export const FlagSlider = ({
   };
 
   const min = (
-    hardMin ?? allowedValues.length ? first(allowedValues) : schemaMin ?? 0
+    (hardMin ?? allowedValues.length) ? first(allowedValues) : (schemaMin ?? 0)
   ) as number;
   const max = (
-    hardMax ?? allowedValues.length ? last(allowedValues) : schemaMax ?? 100
+    (hardMax ?? allowedValues.length) ? last(allowedValues) : (schemaMax ?? 100)
   ) as number;
 
   const step = hardStep ?? schemaStep ?? 1;
@@ -73,7 +75,7 @@ export const FlagSlider = ({
   const description = hardDescription ?? schemaDescription;
   const helperText = renderDescription(
     description,
-    value ?? schemaDefaultValue ?? min
+    value ?? schemaDefaultValue ?? min,
   );
 
   return (
@@ -83,6 +85,7 @@ export const FlagSlider = ({
           flag={flag}
           helperText={helperText ?? description}
           label={label}
+          hideFlag={hideFlag}
         />
         <div className={"flex items-center justify-center flex-shrink gap-1"}>
           <Input

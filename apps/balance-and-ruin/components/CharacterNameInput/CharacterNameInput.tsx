@@ -24,7 +24,7 @@ export const CharacterNameInput = ({
       setFlag({
         flag: "-name",
         value: cn.join("."),
-      })
+      }),
     );
   };
 

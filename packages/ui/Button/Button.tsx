@@ -1,70 +1,41 @@
-import { cva, cx, VariantProps } from "cva";
+import { cx } from "cva";
+import styles from "./Button.module.css";
 
 type BaseButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
-export const buttonStyles = cva(
-  ["WC-button", "text-base", "rounded-none", "transition-all"],
-  {
-    variants: {
-      disabled: {
-        true: "opacity-40 cursor-not-allowed",
-      },
-      size: {
-        default: ["px-4", "py-2"],
-        small: ["px-2", "py-1", "text-s"],
-        smallest: ["p-0"],
-      },
-      variant: {
-        default: [
-          "bg-none",
-          "border-white hover:border-primary-300 active:border-primary",
-          "focus-visible:outline-2 focus-visible:outline-blue-300",
-        ],
-        primary: [
-          "bg-blue-700 text-white",
-          "hover:bg-blue-800",
-          "active:bg-blue-900",
-          "border-blue-300 active:border-blue-500",
-          "focus-visible:border-blue-300 focus-visible:outline-2",
-        ],
-        danger: [
-          "bg-red-600 text-white",
-          "hover:bg-red-700",
-          "active:bg-red-800",
-          "border-red-300 active:border-red-600",
-          "focus-visible:border-red-300 focus-visible:outline-2",
-        ],
-        discord: [
-          "bg-discord text-white",
-          "hover:bg-blue-800",
-          "active:bg-blue-900",
-          "border-blue-300 active:border-blue-500",
-          "focus-visible:border-blue-300 focus-visible:outline-2",
-        ],
-        outline: [
-          "text-gray-700",
-          "focus-visible:shadow-input-focus focus-visible:border-inputs-focus focus-visible:outline-none",
-          "border-inputs-border border-1",
-          "bg-transparent",
 
-          "border-2 border-inputs-border",
-          "outline-transparent",
-
-          "dark:border-white-500 dark:text-white bg-opacity-100",
-        ],
-      },
-    },
-    defaultVariants: {
-      size: "default",
-      variant: "default",
-    },
-  }
-);
+export const buttonStyles = ({
+  disabled,
+  size = "default",
+  variant = "default",
+  className,
+}: {
+  disabled?: boolean | null;
+  size?: "default" | "small" | "smallest" | null;
+  variant?: "default" | "primary" | "danger" | "discord" | "outline" | null;
+  className?: string | null;
+}) => {
+  return cx(
+    styles.button,
+    disabled ? styles.disabled : undefined,
+    size === "default" ? styles.sizeDefault : undefined,
+    size === "small" ? styles.sizeSmall : undefined,
+    size === "smallest" ? styles.sizeSmallest : undefined,
+    variant === "default" ? styles.variantDefault : undefined,
+    variant === "primary" ? styles.variantPrimary : undefined,
+    variant === "danger" ? styles.variantDanger : undefined,
+    variant === "discord" ? styles.variantDiscord : undefined,
+    variant === "outline" ? styles.variantOutline : undefined,
+    className ?? undefined,
+  );
+};
 
 export type ButtonProps = BaseButtonProps & {
   children: React.ReactNode;
+  size?: "default" | "small" | "smallest";
+  variant?: "default" | "primary" | "danger" | "discord" | "outline";
 };
 
 export const Button = ({
@@ -74,15 +45,11 @@ export const Button = ({
   size,
   variant,
   ...props
-}: ButtonProps & VariantProps<typeof buttonStyles>) => {
+}: ButtonProps) => {
   return (
     <button
       {...props}
-      className={cx(
-        "WC-button",
-        className,
-        buttonStyles({ disabled, size, variant })
-      )}
+      className={buttonStyles({ disabled, size, variant, className })}
       disabled={disabled}
     >
       {children}

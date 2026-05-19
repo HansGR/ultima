@@ -56,7 +56,8 @@ const visibleRewardsOptions: SubflagOption[] = [
   {
     defaultValue: [255, 255],
     flag: "-crvr",
-    helperText: "",
+    helperText:
+      "Percent of Coliseum rewards visible in the item selection menu",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-crvr" label={children} helperText="" />
@@ -67,30 +68,39 @@ const visibleRewardsOptions: SubflagOption[] = [
 export const Coliseum = () => {
   return (
     <Card title={"Coliseum"}>
-      <CardColumn>
-        <FlagSubflagSelect
-          options={opponentOptions}
-          label={"Opponents"}
-          nullable={{ description: "", label: "Original" }}
-        />
+      <div className="flex flex-col gap-6 h-full">
+        {/* Row 1: Dropdowns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <FlagSubflagSelect
+            options={opponentOptions}
+            label={"Opponents"}
+            nullable={{ description: "", label: "Original" }}
+          />
 
-        <FlagSubflagSelect
-          options={rewardOptions}
-          label={"Rewards"}
-          nullable={{ description: "", label: "Original" }}
-        />
+          <FlagSubflagSelect
+            options={rewardOptions}
+            label={"Rewards"}
+            nullable={{ description: "", label: "Original" }}
+          />
 
-        <FlagSubflagSelect
-          options={visibleRewardsOptions}
-          label={"Visible Rewards"}
-          nullable={{ description: "", label: "Original" }}
-        />
+          <FlagSubflagSelect
+            options={visibleRewardsOptions}
+            label={"Visible Rewards"}
+            nullable={{
+              description:
+                "Percent of Coliseum rewards visible in the item selection menu",
+              label: "Original",
+            }}
+          />
+        </div>
 
-        <Divider />
-        <FlagSwitch flag="-crm" label="Rewards Menu" />
-        <FlagSwitch flag="-cnee" label="No Exp. Egg" />
-        <FlagSwitch flag="-cnil" label="No Illumina" />
-      </CardColumn>
+        {/* Row 2: Perfectly Aligned Switches */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-auto">
+          <FlagSwitch flag="-crm" label="Rewards Menu" />
+          <FlagSwitch flag="-cnee" label="No Exp. Egg" />
+          <FlagSwitch flag="-cnil" label="No Illumina" />
+        </div>
+      </div>
     </Card>
   );
 };

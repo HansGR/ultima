@@ -73,7 +73,8 @@ const rlsOptions: SubflagOption[] = [
   {
     defaultValue: "top",
     flag: "-rls",
-    helperText: "Top magic (Level 3 spells, Life 2, Quick, Merton, Pearl, Flare, X-Zone, Stop, Ultima) can no longer be learned from Natural Magic, Espers, Equipment, or Objectives",
+    helperText:
+      "Top magic (Level 3 spells, Life 2, Quick, Merton, Pearl, Flare, X-Zone, Stop, Ultima) can no longer be learned from Natural Magic, Espers, Equipment, or Objectives",
     label: "Remove Top Magic",
     isStatic: true,
   },
@@ -124,6 +125,18 @@ export const Spells = () => {
             label: "Original",
           }}
           options={ultimaOptions}
+        />
+
+        <FlagSwitch
+          flag="-scan"
+          helperText="All characters start with the Scan spell learned. Scan costs 0 MP. All enemies are scannable"
+          label="Scan All"
+        />
+
+        <FlagSwitch
+          flag="-warp"
+          helperText="All characters start with the Warp spell learned. Warp costs 0 MP."
+          label="Warp All"
         />
       </CardColumn>
     </Card>

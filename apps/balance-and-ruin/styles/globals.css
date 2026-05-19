@@ -1,4 +1,5 @@
 @import "../node_modules/rc-slider/assets/index.css";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -22,7 +23,7 @@ div#__next > div {
   /* margin: 200px auto 0; */
   /* width: 400px; */
   /* height: 250px; */
-  background: linear-gradient(0deg, #000, #262626);
+  background: var(--bg-card);
 }
 .card-fancy-gradient:before,
 .card-fancy-gradient:after {
@@ -81,20 +82,53 @@ div#__next > div {
 }
 
 
-/* If the user prefers dark mode, 
-we of course apply color-scheme: dark, as usual */
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+:root {
+  /* Soft periwinkle-blue app shell */
+  --bg-app: #EBF0FA;
+  --bg-sidebar: #2c3859;
+  /* Cards sit slightly lighter/warmer than the shell so they pop */
+  --bg-card: #F5F8FF;
+  --bg-card-header: #EDF2FF;
+  --text-main: #1e2a42;
+  --text-sub: #64748b;
+  --border-light: rgba(59, 99, 180, 0.12);
+  
+  --bg-input: #FFFFFF;
+  --text-input: #333333;
+  --border-input: #C5D0E8;
+  --bg-menu: #FFFFFF;
 }
 
-/* If the user prefers light mode, 
-we still enforce color-scheme: dark, despite the user preference */
-@media (prefers-color-scheme: light) {
-  html {
-    color-scheme: dark;
-  }
+.dark {
+  --bg-app: #181d29;
+  --bg-sidebar: #1a2133;
+  --bg-card: #21293a;
+  --bg-card-header: #2a3447;
+  --text-main: #e2e8f0;
+  --text-sub: #94a3b8;
+  --border-light: rgba(255, 255, 255, 0.1);
+  color-scheme: dark;
+  
+  --bg-input: #283146;
+  --text-input: #e2e8f0;
+  --border-input: #38445e;
+  --bg-menu: #283146;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+}
+
+input:not([type="range"]), select, textarea {
+  background-color: var(--bg-input) !important;
+  color: var(--text-input) !important;
+  border-color: var(--border-input) !important;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.dark ::placeholder {
+  color: #94a3b8;
 }
 
 @layer components {
@@ -105,11 +139,12 @@ we still enforce color-scheme: dark, despite the user preference */
   
   .ff6-slider .rc-slider-handle {
     @apply select-none;
-    width: 16px;
-    height: 16px;
-    @apply border-1 border-black dark:border-2;  
-    @apply bg-black dark:bg-white;
+    width: 20px;
+    height: 20px;
+    @apply border-2 border-blue-400;  
+    @apply bg-white shadow-sm;
     opacity: 1;
+    transition: left 0.05s ease-out, transform 0.05s ease-out !important;
 
     @apply focus-visible:shadow-range-focus;
   } 
@@ -120,22 +155,26 @@ we still enforce color-scheme: dark, despite the user preference */
   }
 
   .ff6-slider .rc-slider-mark-text {
-    @apply text-zinc-400 dark:text-zinc-200;
+    @apply text-zinc-400;
     @apply transition-all;
     @apply duration-100;
   }
 
   .ff6-slider .rc-slider-mark-text-active {
-    @apply text-zinc-600 dark:text-white;
+    @apply text-zinc-600;
   }
 
   .ff6-slider.rc-slider .rc-slider-rail {
-    @apply bg-white dark:bg-transparent;
+    @apply bg-white;
   }
   .ff6-slider .rc-slider-handle,
   .ff6-slider .rc-slider-rail,
   .ff6-slider .rc-slider-track {
-    border-radius: 0;
+    border-radius: 9999px;
+  }
+
+  .ff6-slider .rc-slider-handle {
+    border-radius: 50% !important;
   }
 
   .ff6-slider .rc-slider-mark {
@@ -143,19 +182,23 @@ we still enforce color-scheme: dark, despite the user preference */
   }
 
   .ff6-slider .rc-slider-track {
-    @apply bg-blue-600;
-    @apply border-0 bg-blue-600;
-    @apply dark:border-1 dark:border-black;
+    @apply bg-blue-400;
+    @apply border-0;
+    transition: width 0.05s ease-out, left 0.05s ease-out !important;
   }
 
+  .ff6-slider .rc-slider-handle-dragging { transition: none !important; }
+
   .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
-    @apply shadow-none;
+    @apply ring-4 ring-blue-200/50;
+    @apply border-blue-500;
+    transition: none !important; /* Ensure 0 lag during active drag */
   }
 
   .ff6-slider .rc-slider-dot {
     top: 18px;
     width: 0;
-    border-radius: 0;
+    border-radius: 50%;
     border-width: 1px;
     @apply border-zinc-300;
     @apply bg-zinc-100;
@@ -187,15 +230,21 @@ we still enforce color-scheme: dark, despite the user preference */
     @apply font-normal;
   }
 
+  .ff6wc-select-container {
+    max-width: 100%;
+    width: 100%;
+  }
+  
   .ff6wc-select-container .ff6wc-select__control {
-    @apply max-h-[30px];
-    @apply min-h-[30px];
+    @apply min-h-[40px];
     @apply border-1;
-    @apply cursor-text;
-    @apply bg-white dark:bg-transparent;      
-    @apply border-inputs-border;
+    @apply cursor-pointer;
+    padding-left: 0px !important;
+    background-color: var(--bg-input) !important;      
+    border-color: var(--border-input) !important;
     @apply hover:border-neutral-400;
-    @apply rounded-none;
+    border-radius: 12px !important;
+    overflow: hidden !important;
   }
 
   .ff6wc-select-container .ff6wc-select__control.ff6wc-select__control--is-focused {
@@ -203,15 +252,29 @@ we still enforce color-scheme: dark, despite the user preference */
   }
 
   .ff6wc-select-container .ff6wc-select__menu {
-    @apply bg-neutral-100 dark:bg-neutral-700 border-2;
-    @apply border-neutral-300 dark:border-neutral-600;
+    background-color: var(--bg-menu) !important;
+    border: 1px solid var(--border-input) !important;
+    max-width: 100%;
+    width: 100%;
+    z-index: 50;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.2) !important;
+    overflow: hidden !important;
   }
 
   .ff6wc-select-container .ff6wc-select__option {
-    @apply text-neutral-600 dark:text-neutral-200;
-    @apply bg-neutral-100 dark:bg-neutral-700;
-    @apply hover:bg-neutral-200 dark:hover:bg-neutral-800;
-    @apply px-2 py-1;
+    color: var(--text-input) !important;
+    background-color: var(--bg-menu);
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    white-space: normal;
+    word-wrap: break-word;
+    cursor: pointer;
+  }
+  .ff6wc-select-container .ff6wc-select__option:hover {
+    background-color: var(--border-light) !important;
   }
   .ff6wc-select-container .ff6wc-select__option--is-selected {
     @apply bg-blue-700 text-white;
@@ -223,7 +286,7 @@ we still enforce color-scheme: dark, despite the user preference */
   
 
   .ff6wc-select-container .ff6wc-select__option--is-focused {
-    @apply bg-neutral-200 dark:bg-neutral-800;
+    background-color: var(--border-light) !important;
   }
 
   .ff6wc-select-container .ff6wc-select__indicator-separator {
@@ -235,16 +298,25 @@ we still enforce color-scheme: dark, despite the user preference */
     @apply px-2;
   }
 
+  .ff6wc-select-container .ff6wc-select__value-container {
+    padding-left: 16px !important;
+  }
+
   .ff6wc-select-container .ff6wc-select__input-container {
     @apply m-0;
-    @apply p-0;
+    padding-left: 0px !important;
   }
   
   .ff6wc-select-container .ff6wc-select__input-container,
   .ff6wc-select-container .ff6wc-select__placeholder,
   .ff6wc-select-container .ff6wc-select__single-value {
-    @apply text-neutral-600 dark:text-neutral-200;
+    color: var(--text-input) !important;
     @apply text-sm;
+    padding-left: 0px !important;
+    margin-left: 0px !important;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible !important;
   }
   
   .ff6wc-select-container input:focus {

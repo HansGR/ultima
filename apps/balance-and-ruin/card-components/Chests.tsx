@@ -18,7 +18,7 @@ const contentOptions: SubflagOption[] = [
       "Chests are shuffled, and each chest then has a {{ . }}% chance to be randomized",
     label: "Shuffle + Random",
     Renderable: ({ children }) => (
-      <FlagSlider helperText={""} flag="-ccsr" label={children} />
+      <FlagSlider helperText={""} flag="-ccsr" label={children} hideFlag />
     ),
   },
   {
@@ -58,12 +58,13 @@ export const Chests = () => {
           }}
         />
         <FlagSwitch flag="-cms" label="MIAB Shuffled" />
-        <DualFlagSlider 
-          flag="-chrm" 
+        <DualFlagSlider
+          flag="-chrm"
           label="Random Monsters"
           helperText="Chest contents will contain {{a}}% enemies and, of those, {{b}}% bosses"
-          aText="Enemies" 
-          bText="Bosses" />
+          aText="Enemies"
+          bText="Bosses"
+        />
       </CardColumn>
     </Card>
   );

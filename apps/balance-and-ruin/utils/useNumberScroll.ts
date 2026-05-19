@@ -3,7 +3,7 @@ import { MutableRefObject, useEffect } from "react";
 const noop = () => {};
 
 export function useNumberScroll(
-  ref: MutableRefObject<HTMLInputElement | null>
+  ref: MutableRefObject<HTMLInputElement | null>,
 ) {
   useEffect(() => {
     if (ref.current) {

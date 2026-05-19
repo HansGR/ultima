@@ -24,7 +24,7 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
       <main
         className={cx(
           openSans.className,
-          "flex flex-col w-full py-4 px-10 h-fit text-center items-center"
+          "flex flex-col w-full py-4 px-10 h-fit text-center items-center",
         )}
       >
         <div className="flex flex-col gap-4 max-w-[900px]">
@@ -37,9 +37,10 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
 
           <p className="text-sm md:text-base">
             Join the&nbsp;<Link href={DISCORD_URL}>Discord server</Link>&nbsp;to
-            play alongside the community and to submit your own ideas for the Seed of The Week!
+            play alongside the community and to submit your own ideas for the
+            Seed of The Week!
           </p>
-          { sotw && <SotwCard sotwId={id} sotw={sotw} /> }
+          {sotw && <SotwCard sotwId={id} sotw={sotw} />}
         </div>
       </main>
       <Footer />
@@ -47,4 +48,4 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
   );
 };
 
-//          
+//

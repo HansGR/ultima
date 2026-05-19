@@ -45,6 +45,8 @@ export interface FlagMetadataNode {
   min: number | null;
   max: number | null;
   step: number | null;
+  group: string | null;
+  type: string | null;
 }
 
 export type Schema = Record<string, FlagMetadataNode>;
@@ -85,14 +87,14 @@ export const schemaSlice = createSlice({
     },
     setSchema: (
       state,
-      action: PayloadAction<Record<string, RawFlagMetadata>>
+      action: PayloadAction<Record<string, RawFlagMetadata>>,
     ) => {
       Object.values(action.payload).forEach((item) => {
         const allowedValues = item.allowed_values || [];
         let step: number = item.options?.step ?? 0;
         if (!step && allowedValues) {
           const interpreted = (allowedValues as number[]).find(
-            (val) => val % 1
+            (val) => val % 1,
           );
           step = interpreted ? interpreted % 1 : 1;
         }
@@ -105,6 +107,8 @@ export const schemaSlice = createSlice({
           max: item.options?.max_val ?? null,
           min: item.options?.min_val ?? null,
           step,
+          group: item.group ?? null,
+          type: item.type ?? null,
         };
       });
     },
@@ -140,5 +144,7 @@ export const selectLabel = (flag: string) => schemaSelector(flag, "label");
 export const selectMax = (flag: string) => schemaSelector(flag, "max");
 export const selectMin = (flag: string) => schemaSelector(flag, "min");
 export const selectStep = (flag: string) => schemaSelector(flag, "step");
+export const selectGroup = (flag: string) => schemaSelector(flag, "group");
+export const selectType = (flag: string) => schemaSelector(flag, "type");
 
 export default schemaSlice.reducer;

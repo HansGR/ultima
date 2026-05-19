@@ -18,7 +18,7 @@ type LayoutNumberCellData = [
   DisplayName,
   Callback,
   Callback?,
-  NumberOptions?
+  NumberOptions?,
 ];
 
 export class LayoutCell extends Tuple<LayoutCellData, boolean> {}
@@ -60,37 +60,37 @@ const layout = [
         "terra",
         "terra",
         ({ characters }) => characters.terra,
-        ({ characters }) => characters.terra
+        ({ characters }) => characters.terra,
       ),
       new LayoutCell(
         "leteRiver",
         "leteRiver",
         ({ events }) => events.leteRiver,
-        ({ characters }) => characters.terra
+        ({ characters }) => characters.terra,
       ),
       new LayoutCell(
         "sealedGate",
         "sealedGate",
         ({ events }) => events.sealedGate,
-        ({ characters }) => characters.terra
+        ({ characters }) => characters.terra,
       ),
       new LayoutCell(
         "whelk",
         "whelk",
         ({ events }) => events.whelk,
-        ({ characters }) => characters.terra
+        ({ characters }) => characters.terra,
       ),
       new LayoutCell(
         "ramuh",
         "ramuh",
         ({ events }) => events.ramuh,
-        ({ characters }) => characters.terra
+        ({ characters }) => characters.terra,
       ),
       new LayoutCell(
         "mobliz",
         "mobliz",
         ({ events }) => events.mobliz,
-        ({ characters }) => characters.terra
+        ({ characters }) => characters.terra,
       ),
     ]),
     new LayoutGroup("setzer", "", [
@@ -98,19 +98,19 @@ const layout = [
         "darill",
         "darill",
         ({ events }) => events.darill,
-        ({ characters }) => characters.setzer
+        ({ characters }) => characters.setzer,
       ),
       new LayoutCell(
         "kohligen",
         "kohligen",
         ({ events }) => events.kohligen,
-        ({ characters }) => characters.setzer
+        ({ characters }) => characters.setzer,
       ),
       new CharacterCell(
         "setzer",
         "setzer",
         ({ characters }) => characters.setzer,
-        ({ characters }) => characters.setzer
+        ({ characters }) => characters.setzer,
       ),
     ]),
   ],
@@ -121,37 +121,37 @@ const layout = [
         "sabin",
         "sabin",
         ({ characters }) => characters.sabin,
-        ({ characters }) => characters.sabin
+        ({ characters }) => characters.sabin,
       ),
       new LayoutCell(
         "barenFalls",
         "barenFalls",
         ({ events }) => events.barenFalls,
-        ({ characters }) => characters.sabin
+        ({ characters }) => characters.sabin,
       ),
       new LayoutCell(
         "imperialCamp",
         "imperialCamp",
         ({ events }) => events.imperialCamp,
-        ({ characters }) => characters.sabin
+        ({ characters }) => characters.sabin,
       ),
       new LayoutCell(
         "mtKoltz",
         "mtKoltz",
         ({ events }) => events.mtKoltz,
-        ({ characters }) => characters.sabin
+        ({ characters }) => characters.sabin,
       ),
       new LayoutCell(
         "phantomTrain",
         "phantomTrain",
         ({ events }) => events.phantomTrain,
-        ({ characters }) => characters.sabin
+        ({ characters }) => characters.sabin,
       ),
       new LayoutCell(
         "collapsingHouse",
         "collapsingHouse",
         ({ events }) => events.collapsingHouse,
-        ({ characters }) => characters.sabin
+        ({ characters }) => characters.sabin,
       ),
     ]),
 
@@ -160,19 +160,19 @@ const layout = [
         "serpentTrench",
         "serpentTrench",
         ({ events }) => events.serpentTrench,
-        ({ characters }) => characters.gau
+        ({ characters }) => characters.gau,
       ),
       new LayoutCell(
         "veldt",
         "veldt",
         ({ events }) => events.veldt,
-        ({ characters }) => characters.gau
+        ({ characters }) => characters.gau,
       ),
       new CharacterCell(
         "gau",
         "gau",
         ({ characters }) => characters.gau,
-        ({ characters }) => characters.gau
+        ({ characters }) => characters.gau,
       ),
     ]),
   ],
@@ -183,19 +183,19 @@ const layout = [
         "celes",
         "celes",
         ({ characters }) => characters.celes,
-        ({ characters }) => characters.celes
+        ({ characters }) => characters.celes,
       ),
       new LayoutCell(
         "operaHouse",
         "operaHouse",
         ({ events }) => events.operaHouse,
-        ({ characters }) => characters.celes
+        ({ characters }) => characters.celes,
       ),
       new LayoutCell(
         "chainedCeles",
         "chainedCeles",
         ({ events }) => events.chainedCeles,
-        ({ characters }) => characters.celes
+        ({ characters }) => characters.celes,
       ),
       new LayoutNumberCell(
         "magitek",
@@ -207,7 +207,7 @@ const layout = [
         ({ characters }) => characters.celes,
         {
           max: 3,
-        }
+        },
       ),
     ]),
     new LayoutGroup("none", "", [
@@ -219,7 +219,7 @@ const layout = [
             ? characterCount
             : Object.values({ ...characters }).filter((z) => !!z).length,
         undefined,
-        { max: 14 }
+        { max: 14 },
       ),
     ]),
     new LayoutGroup("edgar", "", [
@@ -227,25 +227,25 @@ const layout = [
         "figaroThrone",
         "figaroThrone",
         ({ events }) => events.figaroThrone,
-        ({ characters }) => characters.edgar
+        ({ characters }) => characters.edgar,
       ),
       new LayoutCell(
         "figaroCastleEngineRoom",
         "figaroCastleEngineRoom",
         ({ events }) => events.figaroCastleEngineRoom,
-        ({ characters }) => characters.edgar
+        ({ characters }) => characters.edgar,
       ),
       new LayoutCell(
         "ancientCastle",
         "ancientCastle",
         ({ events }) => events.ancientCastle,
-        ({ characters }) => characters.edgar
+        ({ characters }) => characters.edgar,
       ),
       new CharacterCell(
         "edgar",
         "edgar",
         ({ characters }) => characters.edgar,
-        ({ characters }) => characters.edgar
+        ({ characters }) => characters.edgar,
       ),
     ]),
   ],
@@ -256,13 +256,13 @@ const layout = [
         "shadow",
         "shadow",
         ({ characters }) => characters.shadow,
-        ({ characters }) => characters.shadow
+        ({ characters }) => characters.shadow,
       ),
       new LayoutCell(
         "gauManor",
         "gauManor",
         ({ events }) => events.gauManor,
-        ({ characters }) => characters.shadow
+        ({ characters }) => characters.shadow,
       ),
       new LayoutNumberCell(
         "floatingContinent",
@@ -277,13 +277,13 @@ const layout = [
         ({ characters }) => characters.shadow,
         {
           max: 3,
-        }
+        },
       ),
       new LayoutCell(
         "veldtCave",
         "veldtCave",
         ({ events }) => events.veldtCave,
-        ({ characters }) => characters.shadow
+        ({ characters }) => characters.shadow,
       ),
     ]),
 
@@ -293,7 +293,7 @@ const layout = [
         "esperCount",
         ({ esperCount }) => esperCount,
         undefined,
-        { max: 27 }
+        { max: 27 },
       ),
     ]),
 
@@ -302,31 +302,31 @@ const layout = [
         "tunnelArmor",
         "tunnelArmor",
         ({ events }) => events.tunnelArmor,
-        ({ characters }) => characters.locke
+        ({ characters }) => characters.locke,
       ),
       new LayoutNumberCell(
         "narsheWeaponShop",
         "narsheWeaponShop",
         ({ events }) =>
           [events.narsheWeaponShop1, events.narsheWeaponShop2].filter(
-            (z) => !!z
+            (z) => !!z,
           ).length,
         ({ characters }) => characters.locke,
         {
           max: 2,
-        }
+        },
       ),
       new LayoutCell(
         "phoenixCave",
         "phoenixCave",
         ({ events }) => events.phoenixCave,
-        ({ characters }) => characters.locke
+        ({ characters }) => characters.locke,
       ),
       new CharacterCell(
         "locke",
         "locke",
         ({ characters }) => characters.locke,
-        ({ characters }) => characters.locke
+        ({ characters }) => characters.locke,
       ),
     ]),
   ],
@@ -337,13 +337,13 @@ const layout = [
         "cyan",
         "cyan",
         ({ characters }) => characters.cyan,
-        ({ characters }) => characters.cyan
+        ({ characters }) => characters.cyan,
       ),
       new LayoutCell(
         "doma",
         "doma",
         ({ events }) => events.doma,
-        ({ characters }) => characters.cyan
+        ({ characters }) => characters.cyan,
       ),
       new LayoutNumberCell(
         "nightmare",
@@ -351,18 +351,18 @@ const layout = [
         ({ events }) =>
           // return number of checks done at this point
           [events.nightmare1, events.nightmare2, events.nightmare3].filter(
-            (z) => !!z
+            (z) => !!z,
           ).length,
         ({ characters }) => characters.cyan,
         {
           max: 3,
-        }
+        },
       ),
       new LayoutCell(
         "mtZozo",
         "mtZozo",
         ({ events }) => events.mtZozo,
-        ({ characters }) => characters.cyan
+        ({ characters }) => characters.cyan,
       ),
     ]),
 
@@ -377,7 +377,7 @@ const layout = [
         undefined,
         {
           max: 8,
-        }
+        },
       ),
     ]),
 
@@ -386,13 +386,13 @@ const layout = [
         "burningHouse",
         "burningHouse",
         ({ events }) => events.burningHouse,
-        ({ characters }) => characters.strago
+        ({ characters }) => characters.strago,
       ),
       new LayoutCell(
         "ebotsRock",
         "ebotsRock",
         ({ events }) => events.ebotsRock,
-        ({ characters }) => characters.strago
+        ({ characters }) => characters.strago,
       ),
       new LayoutNumberCell(
         "fanaticsTower",
@@ -403,13 +403,13 @@ const layout = [
         ({ characters }) => characters.strago,
         {
           max: 2,
-        }
+        },
       ),
       new CharacterCell(
         "strago",
         "strago",
         ({ characters }) => characters.strago,
-        ({ characters }) => characters.strago
+        ({ characters }) => characters.strago,
       ),
     ]),
   ],
@@ -420,19 +420,19 @@ const layout = [
         "relm",
         "relm",
         ({ characters }) => characters.relm,
-        ({ characters }) => characters.relm
+        ({ characters }) => characters.relm,
       ),
       new LayoutCell(
         "esperMountain",
         "esperMountain",
         ({ events }) => events.esperMountain,
-        ({ characters }) => characters.relm
+        ({ characters }) => characters.relm,
       ),
       new LayoutCell(
         "owzersMansion",
         "owzersMansion",
         ({ events }) => events.owzersMansion,
-        ({ characters }) => characters.relm
+        ({ characters }) => characters.relm,
       ),
     ]),
     new LayoutGroup("none", "", [
@@ -441,7 +441,7 @@ const layout = [
         "bossCount",
         ({ bossCount }) => bossCount,
         undefined,
-        { max: 100 }
+        { max: 100 },
       ),
       new LayoutNumberCell(
         "checkCount",
@@ -452,7 +452,7 @@ const layout = [
             : Object.values({ ...events, ...dragons }).filter((z) => !!z)
                 .length,
         undefined,
-        { max: 100 }
+        { max: 100 },
       ),
       new LayoutNumberCell(
         "chestCount",
@@ -461,7 +461,7 @@ const layout = [
         undefined,
         {
           max: 255,
-        }
+        },
       ),
     ]),
 
@@ -470,7 +470,7 @@ const layout = [
         "moogleDefense",
         "moogleDefense",
         ({ events }) => events.moogleDefense,
-        undefined
+        undefined,
       ),
       new LayoutNumberCell(
         "loneWolf",
@@ -480,13 +480,13 @@ const layout = [
         ({ characters }) => characters.mog,
         {
           max: 2,
-        }
+        },
       ),
       new CharacterCell(
         "mog",
         "mog",
         ({ characters }) => characters.mog,
-        ({ characters }) => characters.mog
+        ({ characters }) => characters.mog,
       ),
     ]),
   ],
@@ -497,13 +497,13 @@ const layout = [
         "gogo",
         "gogo",
         ({ characters }) => characters.gogo,
-        ({ characters }) => characters.gogo
+        ({ characters }) => characters.gogo,
       ),
       new LayoutCell(
         "zoneEater",
         "zoneEater",
         ({ events }) => events.zoneEater,
-        ({ characters }) => characters.gogo
+        ({ characters }) => characters.gogo,
       ),
     ]),
     new LayoutGroup("none", "justify-center", [
@@ -511,7 +511,7 @@ const layout = [
         "tzenThief",
         "tzenThief",
         ({ events }) => events.tzenThief,
-        undefined
+        undefined,
       ),
 
       new LayoutNumberCell(
@@ -524,14 +524,14 @@ const layout = [
         undefined,
         {
           max: 2,
-        }
+        },
       ),
 
       new LayoutCell(
         "kefkaAtNarshe",
         "kefkaAtNarshe",
         ({ events }) => events.kefkaAtNarshe,
-        undefined
+        undefined,
       ),
 
       new LayoutCell("doomGaze", "doomGaze", ({ events }) => events.doomGaze),
@@ -543,13 +543,13 @@ const layout = [
         "umarosCave",
         "umarosCave",
         ({ events }) => events.umarosCave,
-        ({ characters }) => characters.umaro
+        ({ characters }) => characters.umaro,
       ),
       new CharacterCell(
         "umaro",
         "umaro",
         ({ characters }) => characters.umaro,
-        ({ characters }) => characters.umaro
+        ({ characters }) => characters.umaro,
       ),
     ]),
   ],
@@ -558,42 +558,42 @@ const layout = [
       new LayoutCell(
         "ancientCastleDragon",
         "ancientCastleDragon",
-        ({ dragons }) => dragons.ancientCastleDragon
+        ({ dragons }) => dragons.ancientCastleDragon,
       ),
       new LayoutCell(
         "narsheDragon",
         "narsheDragon",
-        ({ dragons }) => dragons.narsheDragon
+        ({ dragons }) => dragons.narsheDragon,
       ),
       new LayoutCell(
         "mtZozoDragon",
         "mtZozoDragon",
-        ({ dragons }) => dragons.mtZozoDragon
+        ({ dragons }) => dragons.mtZozoDragon,
       ),
       new LayoutCell(
         "operaHouseDragon",
         "operaHouseDragon",
-        ({ dragons }) => dragons.operaHouseDragon
+        ({ dragons }) => dragons.operaHouseDragon,
       ),
       new LayoutCell(
         "kefkaTowerMidDragon",
         "kefkaTowerMidDragon",
-        ({ dragons }) => dragons.kefkaTowerMidDragon
+        ({ dragons }) => dragons.kefkaTowerMidDragon,
       ),
       new LayoutCell(
         "kefkaTowerRightDragon",
         "kefkaTowerRightDragon",
-        ({ dragons }) => dragons.kefkaTowerRightDragon
+        ({ dragons }) => dragons.kefkaTowerRightDragon,
       ),
       new LayoutCell(
         "phoenixCaveDragon",
         "phoenixCaveDragon",
-        ({ dragons }) => dragons.phoenixCaveDragon
+        ({ dragons }) => dragons.phoenixCaveDragon,
       ),
       new LayoutCell(
         "fanaticsTowerDragon",
         "fanaticsTowerDragon",
-        ({ dragons }) => dragons.fanaticsTowerDragon
+        ({ dragons }) => dragons.fanaticsTowerDragon,
       ),
     ]),
   ],

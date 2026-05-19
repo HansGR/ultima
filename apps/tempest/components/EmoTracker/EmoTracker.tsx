@@ -31,14 +31,14 @@ export function Tracker({
     new SnesSession(`ff6wc-autotracker--${id}`).setLogger((...msgs) => {
       logs.current.push(...msgs);
       setRender(Math.random());
-    })
+    }),
   );
   const [trackerData, setTrackerData] = React.useState(trackerDefaults);
 
   React.useEffect(() => {
     if (window.localStorage.getItem("ff6wc-trackerdata")) {
       setTrackerData(
-        JSON.parse(window.localStorage.getItem("ff6wc-trackerdata") as string)
+        JSON.parse(window.localStorage.getItem("ff6wc-trackerdata") as string),
       );
     }
   }, []);
@@ -69,11 +69,11 @@ export function Tracker({
     await session.disconnect();
     setSession(
       new SnesSession(
-        `ff6wc-autotracker--${Math.floor(Math.random() * 100)}`
+        `ff6wc-autotracker--${Math.floor(Math.random() * 100)}`,
       ).setLogger((...msgs) => {
         logs.current.push(...msgs);
         setRender(Math.random());
-      })
+      }),
     );
   };
 
@@ -107,7 +107,7 @@ export function Tracker({
           new GetSaveDataQuery().setLogger((...msgs) => {
             logs.current.push(...msgs);
             setRender(Math.random());
-          })
+          }),
         );
 
         if (!session.isConnected) {
@@ -129,7 +129,7 @@ export function Tracker({
     if (!isEqual(trackerData, trackerDefaults)) {
       window.localStorage.setItem(
         "ff6wc-trackerdata",
-        JSON.stringify(trackerData)
+        JSON.stringify(trackerData),
       );
     }
   }, [trackerData]);

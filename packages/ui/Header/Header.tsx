@@ -12,7 +12,7 @@ export const Header = ({ children = null, className }: HeaderProps) => {
     <div
       className={cx(
         className,
-        "WC-header relative flex flex-col w-full min-h-fit justify-center items-center text-white text-xs shadow-lg p-4"
+        "WC-header relative flex flex-col w-full min-h-fit justify-center items-center text-white text-xs shadow-lg p-4",
       )}
     >
       <div className={"z-20"}>

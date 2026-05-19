@@ -20,7 +20,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
         robotoMono.className,
         montserrat.className,
         roboto.className,
-        "w-full flex flex-col h-full"
+        "w-full flex flex-col h-full",
       )}
     >
       {/* <Provider store={store}> */}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import EmoTracker from "~/components/EmoTracker/EmoTracker";
 import { EmoTrackerLayout } from "~/components/EmoTracker/EmoTrackerLayout";
 import { PageContainer } from "~/components/PageContainer";
@@ -7,9 +7,7 @@ import { Footer } from "~/components/Footer/Footer";
 import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 
-
-
-const Auto = ({showLayout = true}) => {
+const Auto = ({ showLayout = true }) => {
   return (
     <>
       <TempestHead />

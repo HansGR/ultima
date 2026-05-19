@@ -11,7 +11,6 @@ import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 type PageProps = {};
 
-
 const ManualSimple = () => {
   return (
     <>

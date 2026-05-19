@@ -74,12 +74,6 @@ export const WorkshopCard = () => {
             </div>
           }
         />
-        <FlagSlider
-          flag="-sj"
-          label={<BetaLabel>Starting Junk</BetaLabel>}
-          helperText="Start the game with {{.}} unique low tier items. Includes weapons, armors, helmets, shields, and relics"
-        />
-
       </CardColumn>
     </Card>
   );

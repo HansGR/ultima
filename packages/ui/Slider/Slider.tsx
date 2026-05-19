@@ -31,8 +31,8 @@ export const Slider = <T extends number | number[]>({
     typeof value === "number"
       ? { [value]: value }
       : value
-      ? { [value[0]]: value[0], [value[1]]: value[1] }
-      : {};
+        ? { [value[0]]: value[0], [value[1]]: value[1] }
+        : {};
   const defaultMarks: Record<number, number> = {
     [min]: min,
     [max]: max,

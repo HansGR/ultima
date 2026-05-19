@@ -10,6 +10,7 @@ export const BossAI = () => {
           Revert balance changes that have been made over time for Worlds
           Collide
         </HelperText>
+        <div className="hidden md:block" />
 
         <FlagSwitch
           flag="-bnu"
@@ -17,26 +18,23 @@ export const BossAI = () => {
           invert
           label="Restore Undead Bosses"
         />
-
-        <Divider />
         <FlagSwitch
-          flag="-cmd"
-          invert
-          helperText="Chadarnook will spend less time in demon form"
-          label="Chadarnook Less Demon"
+          flag="-bmkl"
+          helperText="Don't replace the Marshal's Lobos with randomized enemies"
+          label="Restore Marshal's Lobos"
         />
+
         <FlagSwitch
           flag="-dgne"
           invert
           helperText="Doom gaze will escape during the fight"
           label=" Doom Gaze Escapes"
         />
-
         <FlagSwitch
-          flag="-mmnu"
+          flag="-cmd"
           invert
-          helperText="MagiMaster will cast Ultima on death"
-          label="MagiMaster Casts Ultima on Death"
+          helperText="Chadarnook will spend less time in demon form"
+          label="Chadarnook Less Demon"
         />
 
         <FlagSwitch
@@ -44,6 +42,12 @@ export const BossAI = () => {
           invert
           helperText="Wrexsoul will cast Zinger throughout the battle"
           label="Wrexsoul Casts Zinger"
+        />
+        <FlagSwitch
+          flag="-mmnu"
+          invert
+          helperText="MagiMaster will cast Ultima on death"
+          label="MagiMaster Casts Ultima on Death"
         />
       </CardColumn>
     </Card>

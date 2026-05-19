@@ -20,7 +20,7 @@ export default function PortraitDrawLoad({
 }: PortraitDrawLoadProps) {
   const { data, error } = useSWRImmutable<LoadSpriteResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/api/portrait/${portraitId}`,
-    fetcher
+    fetcher,
   );
 
   const { alphaBytes, rgbBytes } = React.useMemo(() => {

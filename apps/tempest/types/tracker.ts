@@ -67,5 +67,5 @@ export const characterChecks: Record<FF6Character, Array<FF6Event>> = {
 };
 
 export const characterNames = Object.keys(
-  characterChecks
+  characterChecks,
 ) as Array<FF6Character>;

@@ -2,13 +2,14 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import first from "lodash/first";
 import last from "lodash/last";
-import BaseSelect, { SingleValue } from "react-select";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { SelectOption } from "~/components/Select/Select";
+import {
+  Select as CustomSelect,
+  SelectOption,
+} from "~/components/Select/Select";
 import { selectObjectiveConditionMetadataById } from "~/state/objectiveSlice";
 import { Objective, ObjectiveCondition } from "~/types/objectives";
 import { Slider } from "@ff6wc/ui";
-import { HiTrash } from "react-icons/hi";
 import { isValidCondition } from "~/utils/isValidCondition";
 
 export type ObjectiveConditionsRequiredProps = {
@@ -35,33 +36,34 @@ export const ObjectiveConditionSelect = ({
         label: c.condition_type_name,
         value: c.id.toString(),
       })),
-    [meta]
+    [meta],
   );
 
   const optionsById = useMemo(
     () =>
-      options.reduce((acc, val) => {
-        acc[val.value] = val;
-        return acc;
-      }, {} as Record<string, SelectOption>),
-    [options]
+      options.reduce(
+        (acc, val) => {
+          acc[val.value] = val;
+          return acc;
+        },
+        {} as Record<string, SelectOption>,
+      ),
+    [options],
   );
 
-  const selectedCondition = optionsById[id];
+  const selectedCondition = optionsById[id] ?? null;
 
-  const onConditionChange = (selected: SingleValue<SelectOption>) => {
+  const onConditionChange = (selected: SelectOption | null) => {
     const idx = objective.conditions.indexOf(condition);
 
     if (!selected) {
-      ("idk");
       return;
     }
     if (idx === -1) {
-      // condition doesn't exist in result?
       console.error(
         "condition not found within objective",
         objective,
-        condition
+        condition,
       );
       return;
     }
@@ -87,7 +89,7 @@ export const ObjectiveConditionSelect = ({
 
     const oldId = Number.parseInt(condition.id);
     const newId = Number.parseInt(newCondition.id);
-    // if the current selected is "None" and we're selecting another condition, increse required conditions by 1
+
     if (oldId === 0 && newId > 0) {
       obj.requiredConditions = [
         Math.max(Math.min(obj.requiredConditions[0], validConditions) + 1, 0),
@@ -115,7 +117,7 @@ export const ObjectiveConditionSelect = ({
     onChange(obj);
   };
 
-  const onSelectValueChange = (selected: SingleValue<SelectOption>) => {
+  const onSelectValueChange = (selected: SelectOption | null) => {
     if (!selected) {
       return;
     }
@@ -143,42 +145,26 @@ export const ObjectiveConditionSelect = ({
 
   const getSelectedValueOption = () =>
     selectOptions.find(
-      ({ value }) => value.toString() === condition.values?.[0]?.toString()
-    );
+      ({ value }) => value.toString() === condition.values?.[0]?.toString(),
+    ) ?? null;
 
   const showSubselect = !["0", "1"].includes(id);
   const description = "";
 
   return (
     <div className="flex flex-col gap-2">
-      <div>
-        <FlagLabel
-          flag={objective.flag}
-          helperText={description}
-          label={"Condition"}
-        />
-      </div>
-
-      <BaseSelect
-        className="ff6wc-select-container"
-        classNamePrefix="ff6wc-select"
-        instanceId={id}
-        getOptionLabel={(option) => option.label}
-        getOptionValue={(option) => option.value}
+      <CustomSelect
+        isSearchable
         options={options}
-        onChange={(val) => onConditionChange(val)}
+        onChange={onConditionChange}
         value={selectedCondition}
       />
 
       {showSubselect && !range ? (
-        <BaseSelect
-          className="ff6wc-select-container"
-          classNamePrefix="ff6wc-select"
-          instanceId={id}
-          getOptionLabel={(option) => option.label}
-          getOptionValue={(option) => option.value}
+        <CustomSelect
+          isSearchable
           options={selectOptions}
-          onChange={(val) => onSelectValueChange(val)}
+          onChange={onSelectValueChange}
           value={getSelectedValueOption()}
         />
       ) : null}

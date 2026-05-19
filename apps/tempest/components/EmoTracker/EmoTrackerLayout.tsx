@@ -35,7 +35,7 @@ export const EmoTrackerLayout = (props: EmoTrackerLayoutProps) => {
               {$groups}
             </TrackerRow>
           );
-        })
+        }),
       )}
     </>
   );

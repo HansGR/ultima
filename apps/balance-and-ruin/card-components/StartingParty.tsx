@@ -8,13 +8,6 @@ import random from "lodash/random";
 import startCase from "lodash/startCase";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import {
-  components,
-  ControlProps,
-  OptionProps,
-  SingleValue,
-} from "react-select";
-import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
 import { Select, SelectOption as BaseOption } from "~/components/Select/Select";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 import {
@@ -23,7 +16,6 @@ import {
   defaultSpritePaletteString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
-import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 type SelectOption = BaseOption & {
@@ -53,7 +45,6 @@ const useCharacterNames = () => {
     if (actualNames[characterId] === rawNames[characterId]) {
       return regularName;
     }
-
     return `${rawNames[characterId]} (${regularName})`;
   });
 };
@@ -72,12 +63,15 @@ const useOptions = () => {
             value: characterName,
             poseId: 1,
             label: customCharacterNames[idx],
-          } as SelectOption)
+          }) as SelectOption,
       ),
     ];
-    const optionsById = options.reduce((acc, val) => {
-      return { ...acc, [val.value]: val };
-    }, {} as Record<string, SelectOption>);
+    const optionsById = options.reduce(
+      (acc, val) => {
+        return { ...acc, [val.value]: val };
+      },
+      {} as Record<string, SelectOption>,
+    );
 
     return { options, optionsById };
   }, [customCharacterNames]);
@@ -132,74 +126,109 @@ const useSpritePaletteId = (characterId: number) => {
   return paletteId;
 };
 
-const SelectPartyControl = ({
-  children,
-  selectProps,
-  ...props
-}: ControlProps<SelectOption, false>) => {
-  const value: SingleValue<SelectOption> =
-    selectProps.value as unknown as SingleValue<SelectOption>;
-  const characterValue = value?.value ?? "";
-
+/**
+ * SpriteCell — a proper React component so hooks can safely be called inside.
+ * Renders the character sprite at the given scale, or nothing for "None".
+ */
+const SpriteCell = ({
+  option,
+  scale = 2,
+}: {
+  option: SelectOption;
+  scale?: number;
+}) => {
+  const characterValue = option?.value ?? "";
   const isRandom = randomValues.includes(characterValue);
   const isNgu = characterValue === RANDOM_NGU;
 
-  const characterIdx = characterNames.indexOf(value?.value as FF6Character);
-  const poseId = value?.poseId ?? 1;
+  const characterIdx = characterNames.indexOf(characterValue as FF6Character);
+  const poseId = option?.poseId ?? 1;
   const rawSpriteId = useSpriteId(characterIdx);
   const spriteId = useMemo(
     () => (isNgu ? random(0, 11) : isRandom ? random(0, 13) : rawSpriteId),
-    [isNgu, isRandom, rawSpriteId]
+    [isNgu, isRandom, rawSpriteId],
   );
 
   const showSprite = spriteId !== -1;
   const colorSprite = characterIdx !== -1;
   const paletteId = useSpritePaletteId(colorSprite ? characterIdx : 0);
 
-  return (
-    <components.Control
-      {...props}
-      selectProps={selectProps}
-      className={"WC-SelectPartyControl pl-4"}
-    >
-      {showSprite ? (
-        <span className="relative">
-          <SpriteDrawLoad
-            className={colorSprite ? undefined : "brightness-0"}
-            spriteId={spriteId}
-            paletteId={paletteId}
-            poseId={poseId}
-            scale={3}
-          />
+  if (!showSprite) {
+    const isScale3 = scale === 3;
+    return (
+      <div
+        style={{
+          width: isScale3 ? 48 : 32,
+          height: isScale3 ? 72 : 48,
+        }}
+        className="flex-shrink-0 inline-block"
+      />
+    );
+  }
 
-          {!colorSprite ? (
-            <span className="absolute flex top-0 bottom-0 left-0 right-0 items-center justify-center text-2xl">
-              ?
-            </span>
-          ) : null}
+  return (
+    <span className="relative flex-shrink-0 inline-flex items-center">
+      <SpriteDrawLoad
+        className={colorSprite ? undefined : "brightness-0"}
+        spriteId={spriteId}
+        paletteId={paletteId}
+        poseId={poseId}
+        scale={scale}
+      />
+      {!colorSprite ? (
+        <span className="absolute flex top-0 bottom-0 left-0 right-0 items-center justify-center text-xl">
+          ?
         </span>
       ) : null}
-      {children}
-    </components.Control>
+    </span>
   );
 };
 
-const partyComponents = {
-  Control: SelectPartyControl,
-};
+/**
+ * SpriteSelect — wraps the Headless UI Select with character sprite rendering
+ * in both the trigger button (renderValue) and each dropdown row (renderOption).
+ */
+const SpriteSelect = ({
+  flag,
+  options,
+  value,
+  onChange,
+}: {
+  flag: string;
+  options: SelectOption[];
+  value: SelectOption | undefined;
+  onChange: (selected: SelectOption | null) => void;
+}) => {
+  const renderValue = (opt: SelectOption) => (
+    <span className="flex items-center gap-2 min-w-0">
+      <SpriteCell option={opt} scale={3} />
+      <span className="truncate">{opt.label}</span>
+    </span>
+  );
 
-const partySelectProps = {
-  containerClassName: "col-span-2 md:col-span-1",
-  className: "ff6wc-party-select",
-  components: partyComponents,
-  defaultValue: noneOption,
+  const renderOption = (opt: SelectOption) => (
+    <span className="flex items-center gap-2 min-w-0">
+      <SpriteCell option={opt} scale={2} />
+      <span className="truncate">{opt.label}</span>
+    </span>
+  );
+
+  return (
+    <Select
+      defaultValue={noneOption}
+      onChange={onChange}
+      options={options}
+      value={value ?? noneOption}
+      renderValue={renderValue}
+      renderOption={renderOption}
+    />
+  );
 };
 
 export const StartingParty = () => {
   const dispatch = useDispatch();
 
   const { options } = useOptions();
-
   const values = useAllStartingPartyValues();
 
   const sc1Option = usePartyOption("-sc1");
@@ -214,57 +243,47 @@ export const StartingParty = () => {
     "-sc4": ["-sc1", "-sc2", "-sc3"],
   };
 
-  const filterOptions = (flag: string, options: SelectOption[]) => {
+  const filterOptions = (flag: string, opts: SelectOption[]) => {
     const exclude = filterData[flag]
-      .map((flag) => values[flag])
+      .map((f) => values[f])
       .filter((val) => characterNames.includes(val as FF6Character));
-    return options.filter(({ value }) => !exclude.includes(value));
+    return opts.filter(({ value }) => !exclude.includes(value));
   };
 
   const onChange = (flag: string) => (selected: SelectOption | null) => {
     if (selected?.value === NONE) {
-      dispatch(
-        setFlag({
-          flag,
-          value: null,
-        })
-      );
+      dispatch(setFlag({ flag, value: null }));
       return;
     }
-    dispatch(
-      setFlag({
-        flag,
-        value: selected?.value!,
-      })
-    );
+    dispatch(setFlag({ flag, value: selected?.value! }));
   };
 
   return (
     <Card title={"Starting Party"}>
       <div className="grid grid-cols-2 gap-4">
-        <Select
-          {...partySelectProps}
+        <SpriteSelect
+          flag="-sc1"
           onChange={onChange("-sc1")}
           options={filterOptions("-sc1", options)}
           value={sc1Option}
         />
 
-        <Select
-          {...partySelectProps}
+        <SpriteSelect
+          flag="-sc2"
           onChange={onChange("-sc2")}
           options={filterOptions("-sc2", options)}
           value={sc2Option}
         />
 
-        <Select
-          {...partySelectProps}
+        <SpriteSelect
+          flag="-sc3"
           onChange={onChange("-sc3")}
           options={filterOptions("-sc3", options)}
           value={sc3Option}
         />
 
-        <Select
-          {...partySelectProps}
+        <SpriteSelect
+          flag="-sc4"
           onChange={onChange("-sc4")}
           options={filterOptions("-sc4", options)}
           value={sc4Option}

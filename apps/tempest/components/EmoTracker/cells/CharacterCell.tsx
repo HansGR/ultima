@@ -57,7 +57,7 @@ export function CharacterCell(props: Props): JSX.Element {
   const className = cx(
     !isAvailable ? "gated-cell" : "",
     !active ? "inactive-cell" : "",
-    active ? "active-cell" : ""
+    active ? "active-cell" : "",
   );
   const showAdornment = false;
   const idx = charOrder.indexOf(key);
@@ -83,7 +83,7 @@ export function CharacterCell(props: Props): JSX.Element {
             "overlay-content",
             "font-mono",
             isRight ? "multicheck-cell-flex-end" : "multicheck-cell-flex-start",
-            !complete ? "multicheck-cell-incomplete" : ""
+            !complete ? "multicheck-cell-incomplete" : "",
           )}
         >
           <span color="inherit" className={className}>
@@ -113,7 +113,7 @@ export function CharacterCell(props: Props): JSX.Element {
     className,
     "",
     showAdornment ? adornment : null,
-    { min, max, value }
+    { min, max, value },
   );
 }
 
