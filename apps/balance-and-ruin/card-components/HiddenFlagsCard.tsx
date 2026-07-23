@@ -149,6 +149,7 @@ const USED_FLAGS = [
   "-oops",
   "-open",
   "-pd",
+  "-rc",
   "-rec1",
   "-rec2",
   "-rec3",

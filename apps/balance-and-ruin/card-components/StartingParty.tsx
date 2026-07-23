@@ -3,7 +3,7 @@ import {
   CHARACTER_POSES,
   FF6Character,
 } from "@ff6wc/ff6-types";
-import { Card } from "@ff6wc/ui";
+import { Card, HelperText } from "@ff6wc/ui";
 import random from "lodash/random";
 import startCase from "lodash/startCase";
 import { useMemo } from "react";
@@ -81,25 +81,38 @@ const useOptions = () => {
   }, [customCharacterNames]);
 };
 
-const useAllStartingPartyValues = (): Record<string, string> => {
-  const sc1 = useFlagValueSelector<string>("-sc1") ?? NONE;
-  const sc2 = useFlagValueSelector<string>("-sc2") ?? NONE;
-  const sc3 = useFlagValueSelector<string>("-sc3") ?? NONE;
-  const sc4 = useFlagValueSelector<string>("-sc4") ?? NONE;
+const SC_FLAGS = ["-sc1", "-sc2", "-sc3", "-sc4"];
 
-  return {
-    "-sc1": sc1,
-    "-sc2": sc2,
-    "-sc3": sc3,
-    "-sc4": sc4,
-  };
+/**
+ * The required characters flag (-rc) holds a space-separated list of
+ * characters (or random/randomngu) that must remain in the party at all
+ * times. WC adds each required character to the starting party, so a slot
+ * marked "required" stores its value in -rc INSTEAD of -scN — listing a
+ * random token in both flags would create two separate starting characters.
+ */
+const useRequiredCharacters = (): string[] => {
+  const raw = useFlagValueSelector<string[] | string | boolean>("-rc");
+  return useMemo(() => {
+    if (Array.isArray(raw)) {
+      return raw;
+    }
+    if (typeof raw === "string") {
+      return raw.split(" ").filter(Boolean);
+    }
+    // `true` is the deprecated bool -rc (random clock) — ignore it
+    return [];
+  }, [raw]);
 };
 
-const usePartyOption = (flag: string) => {
-  const { optionsById } = useOptions();
-  const value = useFlagValueSelector<string>(flag) ?? "-unknown";
-  const option = optionsById[value];
-  return option;
+type PartySlot = {
+  /** the -scN flag this slot writes to when not required */
+  scFlag: string;
+  /** character/random token displayed in this slot, or NONE */
+  value: string;
+  /** whether this slot's character is stored in -rc */
+  required: boolean;
+  /** index of this slot's entry within the -rc list (-1 when not required) */
+  rcIndex: number;
 };
 
 const useSpriteId = (characterId: number) => {
@@ -232,67 +245,142 @@ const SpriteSelect = ({
 export const StartingParty = () => {
   const dispatch = useDispatch();
 
-  const { options } = useOptions();
-  const values = useAllStartingPartyValues();
+  const { options, optionsById } = useOptions();
 
-  const sc1Option = usePartyOption("-sc1");
-  const sc2Option = usePartyOption("-sc2");
-  const sc3Option = usePartyOption("-sc3");
-  const sc4Option = usePartyOption("-sc4");
+  const sc1 = useFlagValueSelector<string>("-sc1");
+  const sc2 = useFlagValueSelector<string>("-sc2");
+  const sc3 = useFlagValueSelector<string>("-sc3");
+  const sc4 = useFlagValueSelector<string>("-sc4");
+  const scValues = [sc1, sc2, sc3, sc4];
 
-  const filterData: Record<string, string[]> = {
-    "-sc1": ["-sc2", "-sc3", "-sc4"],
-    "-sc2": ["-sc1", "-sc3", "-sc4"],
-    "-sc3": ["-sc1", "-sc2", "-sc4"],
-    "-sc4": ["-sc1", "-sc2", "-sc3"],
+  const requiredCharacters = useRequiredCharacters();
+
+  // Assign each slot its value: slots with an -scN value show it unchecked;
+  // the remaining slots display the -rc entries, in order, checked.
+  let rcCursor = 0;
+  const slots: PartySlot[] = SC_FLAGS.map((scFlag, idx) => {
+    const scValue = scValues[idx];
+    if (scValue) {
+      return { scFlag, value: scValue, required: false, rcIndex: -1 };
+    }
+    if (rcCursor < requiredCharacters.length) {
+      const rcIndex = rcCursor++;
+      return {
+        scFlag,
+        value: requiredCharacters[rcIndex],
+        required: true,
+        rcIndex,
+      };
+    }
+    return { scFlag, value: NONE, required: false, rcIndex: -1 };
+  });
+
+  // -rc entries that don't fit in the four slots (only possible via a pasted
+  // flag string that over-fills the party) — WC rejects these at generation.
+  const overflowCount = requiredCharacters.length - rcCursor;
+
+  const setRequiredCharacters = (next: string[]) => {
+    dispatch(setFlag({ flag: "-rc", value: next.length ? next : null }));
   };
 
-  const filterOptions = (flag: string, opts: SelectOption[]) => {
-    const exclude = filterData[flag]
-      .map((f) => values[f])
+  const filterOptions = (slotIndex: number) => {
+    const exclude = slots
+      .filter((_, idx) => idx !== slotIndex)
+      .map((slot) => slot.value)
+      .concat(requiredCharacters.slice(rcCursor))
       .filter((val) => characterNames.includes(val as FF6Character));
-    return opts.filter(({ value }) => !exclude.includes(value));
+    return options.filter(({ value }) => !exclude.includes(value));
   };
 
-  const onChange = (flag: string) => (selected: SelectOption | null) => {
-    if (selected?.value === NONE) {
-      dispatch(setFlag({ flag, value: null }));
+  const onSelectChange =
+    (slot: PartySlot) => (selected: SelectOption | null) => {
+      const value = selected?.value;
+      if (slot.required) {
+        const next = [...requiredCharacters];
+        if (!value || value === NONE) {
+          next.splice(slot.rcIndex, 1);
+        } else {
+          next[slot.rcIndex] = value;
+        }
+        setRequiredCharacters(next);
+        return;
+      }
+      dispatch(
+        setFlag({
+          flag: slot.scFlag,
+          value: !value || value === NONE ? null : value,
+        }),
+      );
+    };
+
+  const onRequiredToggle = (slot: PartySlot, slotIndex: number) => () => {
+    if (slot.required) {
+      // move the character back from -rc into this slot's -scN flag
+      const next = [...requiredCharacters];
+      next.splice(slot.rcIndex, 1);
+      setRequiredCharacters(next);
+      dispatch(setFlag({ flag: slot.scFlag, value: slot.value }));
       return;
     }
-    dispatch(setFlag({ flag, value: selected?.value! }));
+    if (slot.value === NONE) {
+      return;
+    }
+    // move the character from -scN into -rc, inserting at the position that
+    // keeps it rendered in this same slot
+    const insertAt = slots
+      .slice(0, slotIndex)
+      .filter(({ required }) => required).length;
+    const next = [...requiredCharacters];
+    next.splice(insertAt, 0, slot.value);
+    dispatch(setFlag({ flag: slot.scFlag, value: null }));
+    setRequiredCharacters(next);
   };
 
   return (
     <Card title={"Starting Party"}>
+      <HelperText>
+        Check &ldquo;Required?&rdquo; to force that character to remain in your
+        party at all times (<code>-rc</code>)
+      </HelperText>
       <div className="grid grid-cols-2 gap-4">
-        <SpriteSelect
-          flag="-sc1"
-          onChange={onChange("-sc1")}
-          options={filterOptions("-sc1", options)}
-          value={sc1Option}
-        />
-
-        <SpriteSelect
-          flag="-sc2"
-          onChange={onChange("-sc2")}
-          options={filterOptions("-sc2", options)}
-          value={sc2Option}
-        />
-
-        <SpriteSelect
-          flag="-sc3"
-          onChange={onChange("-sc3")}
-          options={filterOptions("-sc3", options)}
-          value={sc3Option}
-        />
-
-        <SpriteSelect
-          flag="-sc4"
-          onChange={onChange("-sc4")}
-          options={filterOptions("-sc4", options)}
-          value={sc4Option}
-        />
+        {slots.map((slot, slotIndex) => {
+          const disabled = !slot.required && slot.value === NONE;
+          return (
+            <div key={slot.scFlag} className="flex flex-col gap-2">
+              <SpriteSelect
+                flag={slot.scFlag}
+                onChange={onSelectChange(slot)}
+                options={filterOptions(slotIndex)}
+                value={optionsById[slot.value]}
+              />
+              <label
+                className={`flex items-center gap-2 ${
+                  disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={slot.required}
+                  disabled={disabled}
+                  onChange={onRequiredToggle(slot, slotIndex)}
+                  className="rounded border-slate-300 dark:border-slate-700 text-indigo-600 focus:ring-indigo-500/20"
+                />
+                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Required?
+                </span>
+              </label>
+            </div>
+          );
+        })}
       </div>
+      {overflowCount > 0 ? (
+        <HelperText>
+          Warning: {overflowCount} required character
+          {overflowCount === 1 ? " does" : "s do"} not fit in the four party
+          slots — seed generation will fail. Remove starting or required
+          characters until at most four remain.
+        </HelperText>
+      ) : null}
     </Card>
   );
 };

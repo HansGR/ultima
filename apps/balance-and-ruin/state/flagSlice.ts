@@ -31,6 +31,10 @@ export const getFlagValue = (key: string, val: FlagValue | null) => {
     return "";
   }
   if (Array.isArray(val)) {
+    // an empty list means the flag is effectively unset (e.g. `-rc` with no characters)
+    if (val.length === 0) {
+      return "";
+    }
     return `${key} ${val.join(" ")}`;
   }
   if (typeof val === "boolean") {

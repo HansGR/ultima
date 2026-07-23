@@ -2655,11 +2655,29 @@
         "group": "Misc."
     },
     "-rc": {
-        "key": "random_clock",
-        "type": "bool",
+        "key": "require_characters",
+        "type": "lower",
         "flag": "-rc",
-        "description": "(DEPRECATED -- Always On) Randomize clock's correct time and NPC clues in Zozo",
-        "group": "Misc."
+        "description": "Force the listed character(s) (1-4) to be in the party at all times. Accepts random/randomngu. Compatible with the starting character flags: a required character that is not already a starting character is added as an additional one.",
+        "allowed_values": [
+            "terra",
+            "locke",
+            "cyan",
+            "shadow",
+            "edgar",
+            "sabin",
+            "celes",
+            "strago",
+            "relm",
+            "setzer",
+            "mog",
+            "gau",
+            "gogo",
+            "umaro",
+            "random",
+            "randomngu"
+        ],
+        "group": "Starting Party"
     },
     "-scan": {
         "key": "scan_all",

@@ -181,17 +181,26 @@ function buildInfoRows(
   }
 
   // Starting party
+  const formatChar = (c: string | null) =>
+    c === "random"
+      ? "Random"
+      : c === "randomngu"
+        ? "Random (No Gogo/Umaro)"
+        : (c ?? "?").charAt(0).toUpperCase() + (c ?? "?").slice(1);
   const startChars = ["-sc1", "-sc2", "-sc3", "-sc4"]
     .map((f) => flagStr(fv, f))
     .filter(Boolean);
-  if (startChars.length) {
-    const charList = startChars.map((c) =>
-      c === "random"
-        ? "Random"
-        : c === "randomngu"
-          ? "Random (No Gogo/Umaro)"
-          : (c ?? "?").charAt(0).toUpperCase() + (c ?? "?").slice(1),
-    );
+  // -rc: required characters are also starting characters (see StartingParty)
+  const rcRaw = fv["-rc"];
+  const requiredChars: string[] = Array.isArray(rcRaw)
+    ? rcRaw.map(String)
+    : typeof rcRaw === "string"
+      ? rcRaw.split(" ").filter(Boolean)
+      : [];
+  if (startChars.length || requiredChars.length) {
+    const charList = startChars
+      .map((c) => formatChar(c))
+      .concat(requiredChars.map((c) => `${formatChar(c)} [required]`));
     rows.push({
       label: "Starting Party",
       value: `${charList.length} characters (${charList.join(", ")})`,

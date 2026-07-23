@@ -3,6 +3,8 @@ import { FlagValue } from "~/state/schemaSlice";
 const SPECIAL_FLAG_REGEX = /^-(com|cspr|cpal|cpor|cspp|name|rls|ir|si|steve|oops)$/;
 const OBJECTIVE_REGEX = /^(-o[a-z])$/;
 const STARTING_ITEMS_REGEX = /^(-si)$/;
+/** Flags whose value is a space-separated list of strings (e.g. `-rc terra locke`) */
+const STRING_LIST_REGEX = /^(-rc)$/;
 
 var foo = "-oa 45.-61.45.2.2.2.7.7.4.10.10 -ob 30.8.8.1.1.11.8";
 var FLAG_START_REGEX = /-(?=[a-z])/g;
@@ -21,8 +23,10 @@ export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
       const isCommands = SPECIAL_FLAG_REGEX.test(key);
       const isObjective = OBJECTIVE_REGEX.test(key);
 
-      // is number array
-      if (val1 && val2) {
+      if (STRING_LIST_REGEX.test(key)) {
+        acc[key] = flagWithValue.split(" ").slice(1).filter(Boolean);
+      } else if (val1 && val2) {
+        // is number array
         const min = Number.parseFloat(val1);
         const max = Number.parseFloat(val2);
         acc[key] = [min, max];
