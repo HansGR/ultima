@@ -64,7 +64,7 @@ export const ArchipelagoYamlModal: React.FC<ArchipelagoYamlModalProps> = ({
       treasuresanity,
       scaling,
       getFinalPlayerName(playerName, appendNumberSfx),
-      presetName
+      presetName,
     );
     downloadYamlFile(content, filename);
     onClose();
@@ -95,13 +95,24 @@ export const ArchipelagoYamlModal: React.FC<ArchipelagoYamlModalProps> = ({
         </div>
 
         {/* Form Body */}
-        <form id="archipelago-yaml-form" onSubmit={handleSubmit} className="flex-grow overflow-y-auto p-6 flex flex-col gap-6">
+        <form
+          id="archipelago-yaml-form"
+          onSubmit={handleSubmit}
+          className="flex-grow overflow-y-auto p-6 flex flex-col gap-6"
+        >
           {/* Explanation Box */}
           <div className="p-4 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800/40 text-indigo-900 dark:text-indigo-200 text-sm leading-relaxed flex flex-col gap-3 shadow-inner">
             <div className="flex items-start gap-2.5">
-              <span className="mt-0.5 text-indigo-500 dark:text-indigo-400">💡</span>
+              <span className="mt-0.5 text-indigo-500 dark:text-indigo-400">
+                💡
+              </span>
               <p>
-                <strong>Archipelago</strong> is a cross-game modification system which randomizes different games, then uses the result to build a single unified multi-player game. Items from one game may be present in another, and you will need your fellow players to find items you need in their games to help you complete your own.
+                <strong>Archipelago</strong> is a cross-game modification system
+                which randomizes different games, then uses the result to build
+                a single unified multi-player game. Items from one game may be
+                present in another, and you will need your fellow players to
+                find items you need in their games to help you complete your
+                own.
               </p>
             </div>
             <a
@@ -153,7 +164,8 @@ export const ArchipelagoYamlModal: React.FC<ArchipelagoYamlModalProps> = ({
 
             {appendNumberSfx && playerName.length > 12 && (
               <span className="text-[11px] text-amber-600 dark:text-amber-400 font-medium">
-                ⚠️ Player name trimmed to 12 characters to reserve space for slot suffix.
+                ⚠️ Player name trimmed to 12 characters to reserve space for
+                slot suffix.
               </span>
             )}
           </div>
@@ -176,7 +188,8 @@ export const ArchipelagoYamlModal: React.FC<ArchipelagoYamlModalProps> = ({
                 <span className="flex flex-col gap-0.5 text-sm text-slate-900 dark:text-slate-100 font-medium">
                   Unchanged
                   <span className="text-xs text-slate-400 font-normal leading-normal">
-                    Uses the flagset&apos;s scaling. Caution: character/esper scaling can be very difficult.
+                    Uses the flagset&apos;s scaling. Caution: character/esper
+                    scaling can be very difficult.
                   </span>
                 </span>
               </label>
@@ -193,7 +206,8 @@ export const ArchipelagoYamlModal: React.FC<ArchipelagoYamlModalProps> = ({
                 <span className="flex flex-col gap-0.5 text-sm text-slate-900 dark:text-slate-100 font-medium">
                   Safe
                   <span className="text-xs text-slate-400 font-normal leading-normal">
-                    Changes all scaling to &quot;Check&quot; scaling to prevent dangerous difficulty spikes.
+                    Changes all scaling to &quot;Check&quot; scaling to prevent
+                    dangerous difficulty spikes.
                   </span>
                 </span>
               </label>
@@ -246,13 +260,16 @@ export const ArchipelagoYamlModal: React.FC<ArchipelagoYamlModalProps> = ({
                   name="treasuresanity"
                   value="on_with_additional_gating"
                   checked={treasuresanity === "on_with_additional_gating"}
-                  onChange={() => setTreasuresanity("on_with_additional_gating")}
+                  onChange={() =>
+                    setTreasuresanity("on_with_additional_gating")
+                  }
                   className="mt-1 accent-indigo-500"
                 />
                 <span className="flex flex-col gap-0.5 text-sm text-slate-900 dark:text-slate-100 font-medium">
                   On with Additional Gating
                   <span className="text-xs text-slate-400 font-normal leading-normal">
-                    Chests are shuffled and logically require the character of that map to access.
+                    Chests are shuffled and logically require the character of
+                    that map to access.
                   </span>
                 </span>
               </label>

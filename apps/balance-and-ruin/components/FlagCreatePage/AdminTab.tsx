@@ -30,7 +30,7 @@ const narsheFetch = async (path: string, options: RequestInit = {}) => {
     backendUrl.includes("localhost") || backendUrl.includes("127.0.0.1");
 
   const headers = new Headers(options.headers);
-  if (!headers.has("Content-Type")) {
+  if (options.body && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
   }
   if (token && !headers.has("Authorization")) {
@@ -42,7 +42,7 @@ const narsheFetch = async (path: string, options: RequestInit = {}) => {
 
   try {
     const response = await fetch(url, { ...options, headers });
-    if (response.status === 401 || response.status === 403) {
+    if (response.status === 401) {
       console.warn(`Auth error (${response.status}) on admin fetch: ${path}`);
       if (typeof window !== "undefined") {
         const hadToken = !!localStorage.getItem("auth_token");

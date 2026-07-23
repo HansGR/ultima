@@ -1,14 +1,35 @@
 export const applySafeScaling = (flagstring: string): string => {
   const flagsToRemove = [
-    "lsa", "lsh", "lsce", "lsced", "lsc", "lst", "lsbd",
-    "hma", "hmh", "hmce", "hmced", "hmc", "hmt", "hmbd",
-    "xga", "xgh", "xgce", "xgced", "xgc", "xgt", "xgbd"
+    "lsa",
+    "lsh",
+    "lsce",
+    "lsced",
+    "lsc",
+    "lst",
+    "lsbd",
+    "hma",
+    "hmh",
+    "hmce",
+    "hmced",
+    "hmc",
+    "hmt",
+    "hmbd",
+    "xga",
+    "xgh",
+    "xgce",
+    "xgced",
+    "xgc",
+    "xgt",
+    "xgbd",
   ];
 
   // Split flagstring into chunks separated by spaces followed by a hyphen
-  const flagChunks = flagstring.trim().split(/\s+(?=-)/).filter(Boolean);
-  
-  const filteredChunks = flagChunks.filter(chunk => {
+  const flagChunks = flagstring
+    .trim()
+    .split(/\s+(?=-)/)
+    .filter(Boolean);
+
+  const filteredChunks = flagChunks.filter((chunk) => {
     const firstWord = chunk.split(/\s+/)[0];
     const flagName = firstWord.replace(/^-+/, ""); // strip leading hyphens
     return !flagsToRemove.includes(flagName);
@@ -23,16 +44,23 @@ export const generateArchipelagoYaml = (
   treasuresanity: string,
   scaling: string,
   playerName: string,
-  presetName?: string
+  presetName?: string,
 ): { content: string; filename: string } => {
   const finalFlags = scaling === "safe" ? applySafeScaling(flags) : flags;
 
   // Determine host dynamically
-  const host = typeof window !== "undefined" ? window.location.hostname : "ff6worldscollide.com";
-  const displayHost = host.includes("dev") ? "dev.ff6worldscollide.com" : "ff6worldscollide.com";
+  const host =
+    typeof window !== "undefined"
+      ? window.location.hostname
+      : "ff6worldscollide.com";
+  const displayHost = host.includes("dev")
+    ? "dev.ff6worldscollide.com"
+    : "ff6worldscollide.com";
 
   const escapedFlags = finalFlags.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-  const escapedPlayerName = playerName.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  const escapedPlayerName = playerName
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"');
 
   // Replicate seedbot template yaml with placeholders, wrapping names and flagstrings in double quotes to prevent special char syntax errors.
   const templateYaml = `Final Fantasy 6 Worlds Collide:
@@ -47,7 +75,10 @@ name: "${escapedPlayerName}"
 `;
 
   const sanitizedPresetName = presetName
-    ? presetName.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "")
+    ? presetName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
     : "archipelago";
 
   const filename = `${sanitizedPresetName}.yaml`;

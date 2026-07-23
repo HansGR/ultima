@@ -50,15 +50,36 @@ export const SessionExpiredBanner = () => {
           }
         }
       `}</style>
-      
-      <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-        <FaExclamationTriangle size={20} color="#ef4444" style={{ flexShrink: 0, marginTop: "2px" }} />
+
+      <div
+        style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}
+      >
+        <FaExclamationTriangle
+          size={20}
+          color="#ef4444"
+          style={{ flexShrink: 0, marginTop: "2px" }}
+        />
         <div style={{ flexGrow: 1 }}>
-          <h4 style={{ margin: 0, fontWeight: "bold", fontSize: "0.95rem", color: "#f87171" }}>
+          <h4
+            style={{
+              margin: 0,
+              fontWeight: "bold",
+              fontSize: "0.95rem",
+              color: "#f87171",
+            }}
+          >
             Session Expired
           </h4>
-          <p style={{ margin: "0.25rem 0 0", fontSize: "0.85rem", color: "#cbd5e1", lineHeight: 1.4 }}>
-            Your connection has expired or been invalidated. Please sign in again to continue saving presets.
+          <p
+            style={{
+              margin: "0.25rem 0 0",
+              fontSize: "0.85rem",
+              color: "#cbd5e1",
+              lineHeight: 1.4,
+            }}
+          >
+            Your connection has expired or been invalidated. Please sign in
+            again to continue saving presets.
           </p>
         </div>
         <button
@@ -79,7 +100,14 @@ export const SessionExpiredBanner = () => {
         </button>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem", marginTop: "0.25rem" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: "0.5rem",
+          marginTop: "0.25rem",
+        }}
+      >
         <button
           onClick={() => setShow(false)}
           style={{

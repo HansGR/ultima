@@ -108,7 +108,8 @@ const Create = () => {
     }
 
     // 2. Fetch fresh data in the background (Stale-While-Revalidate)
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const backendUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
     fetchWithTimeout(`${backendUrl}/presets`, {}, 2500)
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
@@ -151,11 +152,7 @@ const Create = () => {
           });
       });
 
-    fetchWithTimeout(
-      `${backendUrl}/api/metadata/flag`,
-      {},
-      2500,
-    )
+    fetchWithTimeout(`${backendUrl}/api/metadata/flag`, {}, 2500)
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
@@ -188,11 +185,7 @@ const Create = () => {
           });
       });
 
-    fetchWithTimeout(
-      `${backendUrl}/api/metadata/objective`,
-      {},
-      2500,
-    )
+    fetchWithTimeout(`${backendUrl}/api/metadata/objective`, {}, 2500)
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();

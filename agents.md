@@ -136,8 +136,7 @@ If you modify `@ff6wc/ui`, `@ff6wc/tracker-core`, or `@ff6wc/ff6-types`:
 
 ## 🎨 UI & Design Guidelines for AI Agents
 
-> [!IMPORTANT]
-> **AESTHETICS ARE ABSOLUTELY CRITICAL.** High-fidelity visual presentation is non-negotiable. If you build interfaces that look generic or default, the development is considered to have **FAILED**.
+> [!IMPORTANT] > **AESTHETICS ARE ABSOLUTELY CRITICAL.** High-fidelity visual presentation is non-negotiable. If you build interfaces that look generic or default, the development is considered to have **FAILED**.
 
 - **Harmonious Palettes**: Avoid harsh defaults (like generic `#FF0000` reds or `#0000FF` blues). Use deep, rich HSL background layers, dark-mode friendly gray-blues (`#0f172a`), and vibrantly saturated neon accent accents (such as cyber-pinks, soft emeralds, or electric golds).
 - **Typography**: Utilize premium typeface selections (Inter, Outfit, Roboto) through the `@next/font` configuration, instead of raw browser defaults.
