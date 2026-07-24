@@ -216,6 +216,31 @@
         "description": "Objective Y",
         "group": "Objectives"
     },
+    "-rc": {
+        "key": "require_characters",
+        "type": "lower",
+        "flag": "-rc",
+        "description": "Force the listed character(s) (1-4) to be in the party at all times. Accepts random/randomngu. Compatible with the starting character flags: a required character that is not already a starting character is added as an additional one.",
+        "allowed_values": [
+            "terra",
+            "locke",
+            "cyan",
+            "shadow",
+            "edgar",
+            "sabin",
+            "celes",
+            "strago",
+            "relm",
+            "setzer",
+            "mog",
+            "gau",
+            "gogo",
+            "umaro",
+            "random",
+            "randomngu"
+        ],
+        "group": "Starting Party"
+    },
     "-sc1": {
         "key": "start_char1",
         "type": "lower",
@@ -2653,31 +2678,6 @@
         "flag": "-rr",
         "description": "(DEPRECATED -- Always On) Randomize in-game RNG table. Affects Setzer's Slots, Auction House, Ebot's Rock, ...",
         "group": "Misc."
-    },
-    "-rc": {
-        "key": "require_characters",
-        "type": "lower",
-        "flag": "-rc",
-        "description": "Force the listed character(s) (1-4) to be in the party at all times. Accepts random/randomngu. Compatible with the starting character flags: a required character that is not already a starting character is added as an additional one.",
-        "allowed_values": [
-            "terra",
-            "locke",
-            "cyan",
-            "shadow",
-            "edgar",
-            "sabin",
-            "celes",
-            "strago",
-            "relm",
-            "setzer",
-            "mog",
-            "gau",
-            "gogo",
-            "umaro",
-            "random",
-            "randomngu"
-        ],
-        "group": "Starting Party"
     },
     "-scan": {
         "key": "scan_all",

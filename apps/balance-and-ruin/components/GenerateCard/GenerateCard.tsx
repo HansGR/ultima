@@ -93,6 +93,14 @@ const useOrderedFlags = () => {
   const flagValues = useSelector(selectFlagValues);
   return useMemo(() => {
     const keys = Object.keys(schema);
+    // list required characters (-rc) just before the starting party (-sc1..4)
+    // sequence, regardless of the order the metadata was served in
+    const rcIndex = keys.indexOf("-rc");
+    const sc1Index = keys.indexOf("-sc1");
+    if (rcIndex !== -1 && sc1Index !== -1) {
+      keys.splice(rcIndex, 1);
+      keys.splice(keys.indexOf("-sc1"), 0, "-rc");
+    }
     return keys.reduce((acc, key) => {
       const additional = getFlagValue(key, flagValues[key]);
       return `${acc} ${additional}`.trim();
