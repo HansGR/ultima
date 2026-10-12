@@ -5,7 +5,7 @@ import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSelectOption } from "~/components/FlagSelect/FlagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
-import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { FlagSingleOrRange } from "~/components/FlagSingleOrRange/FlagSingleOrRange";
 
 const [random, randomngu]: FlagSelectOption[] = [
   { value: "random", label: "Random" },
@@ -28,10 +28,16 @@ export const PartyMembers = () => {
   return (
     <Card title={"Party Members"}>
       <div className="flex flex-col flex-wrap gap-2">
-        <FlagSlider
-          flag="-stl"
-          helperText="Starting party begins the game at level {{ . }}"
+        <FlagSingleOrRange
+          singleFlag="-stl"
+          rangeFlag="-stlr"
           label="Starting Party Level"
+          singleHelperText={(level) =>
+            `Starting party begins the game at level ${level}`
+          }
+          rangeHelperText={(low, high) =>
+            `Each character starts at a random level from ${low} to ${high}`
+          }
         />
         <FlagSwitch flag={"-sal"} label={"Start Average Level"} />
         <FlagSwitch flag={"-sn"} label={"Start Naked"} />

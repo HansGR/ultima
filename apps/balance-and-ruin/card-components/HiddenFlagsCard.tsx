@@ -220,6 +220,7 @@ const USED_FLAGS = [
   "-stesp",
   "-steve",
   "-stl",
+  "-stlr",
   "-stloc",
   "-sto",
   "-stra",
