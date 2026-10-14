@@ -1,6 +1,7 @@
-import { HelperText, Input, Switch } from "@ff6wc/ui";
+import { HelperText, Input, Slider, Switch } from "@ff6wc/ui";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import { useNumberScroll } from "~/utils/useNumberScroll";
@@ -19,7 +20,7 @@ const DEFAULT_WIDTH = 5;
 let rememberedWidth = DEFAULT_WIDTH;
 
 type NumberBoxProps = {
-  label: string;
+  label?: string;
   value: number;
   min: number;
   max: number;
@@ -73,7 +74,7 @@ const NumberBox = ({ label, value, min, max, step, onCommit }: NumberBoxProps) =
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm">{label}</span>
+      {label && <span className="text-sm">{label}</span>}
       <Input
         className={"max-w-[72px] text-center"}
         ref={ref}
@@ -140,6 +141,10 @@ export const FlagLevelCap = () => {
     );
 
   const belowStart = enabled && !soft && cap < startLevel;
+  const capMin = soft ? MEAN.min : Math.max(HARD.min, startLevel);
+  const capMax = soft ? MEAN.max : HARD.max;
+  const writeCap = (val: number) => write(soft ? [val, width] : val);
+
   const description = !enabled
     ? "Characters can reach level 99"
     : soft
@@ -166,53 +171,78 @@ export const FlagLevelCap = () => {
           </InputLabel>
         </div>
         <HelperText>{description}</HelperText>
-        {belowStart && (
-          <span className="text-xs font-medium text-red-500 dark:text-red-400">
-            A hard cap below the starting level ({startLevel}) cannot be
-            generated: raise the cap or lower the starting level.
-          </span>
-        )}
       </div>
 
       {enabled && (
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pl-12">
-          <div className="flex items-center gap-2 text-sm">
-            <span
-              className={`cursor-pointer ${soft ? "" : "font-semibold"}`}
-              onClick={() => onMode(false)}
-            >
-              Hard
-            </span>
-            <Switch
-              checked={soft}
-              description="Soft level cap"
-              onChange={(val) => onMode(val)}
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
+            <div className={"flex justify-between items-center gap-3"}>
+              <div className="w-full">
+                <FlagLabel
+                  flag={FLAG}
+                  hideFlag
+                  label="Cap Level"
+                  helperText={
+                    soft
+                      ? "Experience to the next level doubles here"
+                      : "The highest level a character can reach"
+                  }
+                />
+              </div>
+              <NumberBox
+                value={cap}
+                min={capMin}
+                max={capMax}
+                step={1}
+                onCommit={writeCap}
+              />
+            </div>
+            <Slider
+              min={capMin}
+              max={capMax}
+              step={1}
+              onChange={(val) => writeCap(val as number)}
+              value={Math.min(capMax, Math.max(capMin, cap))}
             />
-            <span
-              className={`cursor-pointer ${soft ? "font-semibold" : ""}`}
-              onClick={() => onMode(true)}
-            >
-              Soft
-            </span>
+            {belowStart && (
+              <span className="text-xs font-medium text-red-500 dark:text-red-400">
+                A hard cap below the starting level ({startLevel}) cannot be
+                generated: raise the cap or lower the starting level.
+              </span>
+            )}
           </div>
-          <NumberBox
-            label="Cap"
-            value={cap}
-            min={soft ? MEAN.min : Math.max(HARD.min, startLevel)}
-            max={soft ? MEAN.max : HARD.max}
-            step={1}
-            onCommit={(val) => write(soft ? [val, width] : val)}
-          />
-          {soft && (
-            <NumberBox
-              label="Width"
-              value={width}
-              min={WIDTH.min}
-              max={WIDTH.max}
-              step={0.1}
-              onCommit={(val) => write([cap, val])}
-            />
-          )}
+
+          <div className={"flex justify-between items-center gap-3 flex-wrap"}>
+            <div className="flex items-center gap-2 text-sm">
+              <span
+                className={`cursor-pointer ${soft ? "" : "font-semibold"}`}
+                onClick={() => onMode(false)}
+              >
+                Hard
+              </span>
+              <Switch
+                checked={soft}
+                description="Soft level cap"
+                onChange={(val) => onMode(val)}
+              />
+              <span
+                className={`cursor-pointer ${soft ? "font-semibold" : ""}`}
+                onClick={() => onMode(true)}
+              >
+                Soft
+              </span>
+            </div>
+            {soft && (
+              <NumberBox
+                label="Width"
+                value={width}
+                min={WIDTH.min}
+                max={WIDTH.max}
+                step={0.1}
+                onCommit={(val) => write([cap, val])}
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
