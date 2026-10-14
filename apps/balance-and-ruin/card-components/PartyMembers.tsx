@@ -1,11 +1,15 @@
 import { characterNames } from "@ff6wc/ff6-types";
 import { Card } from "@ff6wc/ui";
 import startCase from "lodash/startCase";
+import { useSelector } from "react-redux";
 import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSelectOption } from "~/components/FlagSelect/FlagSelect";
-import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { FlagSingleOrRange } from "~/components/FlagSingleOrRange/FlagSingleOrRange";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { selectSchema } from "~/state/schemaSlice";
+import { AppState } from "~/state/store";
 
 const [random, randomngu]: FlagSelectOption[] = [
   { value: "random", label: "Random" },
@@ -25,14 +29,34 @@ const options = [
 ];
 
 export const PartyMembers = () => {
+  // -stlr needs WorldsCollide #172; offer the range only when the backend's
+  // flag schema has it, otherwise a range would fail generation
+  const supportsRandomStartLevel = useSelector(
+    (state: AppState) => "-stlr" in selectSchema(state),
+  );
+
   return (
     <Card title={"Party Members"}>
       <div className="flex flex-col flex-wrap gap-2">
-        <FlagSlider
-          flag="-stl"
-          helperText="Starting party begins the game at level {{ . }}"
-          label="Starting Party Level"
-        />
+        {supportsRandomStartLevel ? (
+          <FlagSingleOrRange
+            singleFlag="-stl"
+            rangeFlag="-stlr"
+            label="Starting Party Level"
+            singleHelperText={(level) =>
+              `Starting party begins the game at level ${level}`
+            }
+            rangeHelperText={(low, high) =>
+              `Each character starts at a random level from ${low} to ${high}`
+            }
+          />
+        ) : (
+          <FlagSlider
+            flag="-stl"
+            helperText="Starting party begins the game at level {{ . }}"
+            label="Starting Party Level"
+          />
+        )}
         <FlagSwitch flag={"-sal"} label={"Start Average Level"} />
         <FlagSwitch flag={"-sn"} label={"Start Naked"} />
         <Deprecated>

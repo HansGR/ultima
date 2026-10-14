@@ -361,6 +361,22 @@
       "max_val": 99
     }
   },
+  "-stlr": {
+    "key": "start_level_random",
+    "type": "int",
+    "flag": "-stlr",
+    "description": "Each character starts at a random level between MIN and MAX (inclusive). With -sal, recruits are still raised to the party's average level if it is higher",
+    "nargs": 2,
+    "args": [
+      "MIN",
+      "MAX"
+    ],
+    "group": "Characters",
+    "options": {
+      "min_val": 3,
+      "max_val": 99
+    }
+  },
   "-sn": {
     "key": "start_naked",
     "type": "bool",
