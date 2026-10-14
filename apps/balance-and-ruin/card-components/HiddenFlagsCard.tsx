@@ -149,6 +149,7 @@ const USED_FLAGS = [
   "-npi",
   "-nu",
   "-nxppd",
+  "-lc",
   "-ond",
   "-oops",
   "-open",

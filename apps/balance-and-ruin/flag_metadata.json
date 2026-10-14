@@ -949,6 +949,18 @@
     "description": "Do not divide experience by number of surviving party members",
     "group": "Experience, Magic Points, Gold"
   },
+  "-lc": {
+    "key": "level_cap",
+    "type": "str",
+    "flag": "-lc",
+    "description": "Level cap. One value LEVEL: hard cap, characters stop gaining experience once they reach LEVEL (the status menu shows 0 to the next level, as at 99); LEVEL must be at least the starting level (-stl, or -stlr's MAX). Two values MEAN WIDTH: soft cap, experience to next level is multiplied by 1 + 10^((level - MEAN) / WIDTH): double from MEAN to MEAN + 1, and every WIDTH levels past that multiply the extra cost by 10. LEVEL and MEAN are whole numbers; WIDTH may have one decimal place (e.g. 2.5)",
+    "nargs": "+",
+    "args": [
+      "LEVEL|MEAN",
+      "WIDTH"
+    ],
+    "group": "Experience, Magic Points, Gold"
+  },
   "-lsa": {
     "key": "level_scaling_average",
     "type": "float",

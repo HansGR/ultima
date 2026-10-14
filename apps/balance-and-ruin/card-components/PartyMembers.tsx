@@ -4,6 +4,7 @@ import startCase from "lodash/startCase";
 import { useSelector } from "react-redux";
 import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
+import { FlagLevelCap } from "~/components/FlagLevelCap/FlagLevelCap";
 import { FlagSelectOption } from "~/components/FlagSelect/FlagSelect";
 import { FlagSingleOrRange } from "~/components/FlagSingleOrRange/FlagSingleOrRange";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
@@ -33,6 +34,10 @@ export const PartyMembers = () => {
   // flag schema has it, otherwise a range would fail generation
   const supportsRandomStartLevel = useSelector(
     (state: AppState) => "-stlr" in selectSchema(state),
+  );
+  // -lc needs a WorldsCollide backend with the level cap flag
+  const supportsLevelCap = useSelector(
+    (state: AppState) => "-lc" in selectSchema(state),
   );
 
   return (
@@ -67,6 +72,7 @@ export const PartyMembers = () => {
           helperText="Each character stat is set to {{.}}% of the original value"
           label={"Character Stats"}
         />
+        {supportsLevelCap && <FlagLevelCap />}
       </div>
     </Card>
   );
