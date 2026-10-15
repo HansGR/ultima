@@ -15,6 +15,32 @@ const WIDTH = { min: 0.1, max: 99 };
 const DEFAULT_CAP = 43;
 const DEFAULT_WIDTH = 5;
 
+// the width slider is logarithmic: most widths of interest sit around 2-5, but
+// the whole range stays reachable. It starts at 0.5, below which the table is
+// (nearly) the same as at 0.1: double at the cap level, then the most
+// experience one level can cost; the number box still takes 0.1-99
+const WIDTH_SLIDER = { min: 0.5, max: WIDTH.max };
+const POSITIONS = 1000;
+const LOG_MIN = Math.log10(WIDTH_SLIDER.min);
+const LOG_SPAN = Math.log10(WIDTH_SLIDER.max) - LOG_MIN;
+const widthToPosition = (width: number) =>
+  Math.round(
+    ((Math.log10(Math.min(WIDTH_SLIDER.max, Math.max(WIDTH_SLIDER.min, width))) -
+      LOG_MIN) /
+      LOG_SPAN) *
+      POSITIONS,
+  );
+/** a slider position as a width: tenths below 10, whole numbers from 10 up */
+const positionToWidth = (position: number) => {
+  const width = 10 ** (LOG_MIN + (position / POSITIONS) * LOG_SPAN);
+  const snapped =
+    width < 10 ? Math.round(width * 10) / 10 : Math.round(width);
+  return Math.min(WIDTH_SLIDER.max, Math.max(WIDTH_SLIDER.min, snapped));
+};
+const WIDTH_MARKS = Object.fromEntries(
+  [0.5, 1, 2, 5, 10, 30, 99].map((width) => [widthToPosition(width), width]),
+);
+
 // the last soft-cap width, so switching hard -> soft restores it; kept outside
 // the component because changing tabs remounts the card
 let rememberedWidth = DEFAULT_WIDTH;
@@ -232,17 +258,41 @@ export const FlagLevelCap = () => {
                 Soft
               </span>
             </div>
-            {soft && (
-              <NumberBox
-                label="Width"
-                value={width}
-                min={WIDTH.min}
-                max={WIDTH.max}
-                step={0.1}
-                onCommit={(val) => write([cap, val])}
-              />
-            )}
           </div>
+
+          {soft && (
+            <div className="flex flex-col gap-2">
+              <div className={"flex justify-between items-center gap-3"}>
+                <div className="w-full">
+                  <FlagLabel
+                    flag={FLAG}
+                    hideFlag
+                    label="Width"
+                    helperText={
+                      width <= WIDTH_SLIDER.min
+                        ? "Every level past the cap level costs the most experience a level can"
+                        : `Levels past the cap level over which the extra cost grows tenfold`
+                    }
+                  />
+                </div>
+                <NumberBox
+                  value={width}
+                  min={WIDTH.min}
+                  max={WIDTH.max}
+                  step={0.1}
+                  onCommit={(val) => write([cap, val])}
+                />
+              </div>
+              <Slider
+                min={0}
+                max={POSITIONS}
+                step={5}
+                marks={WIDTH_MARKS}
+                onChange={(val) => write([cap, positionToWidth(val as number)])}
+                value={widthToPosition(width)}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

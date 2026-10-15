@@ -3,6 +3,8 @@ import BaseSlider, { SliderProps as BaseSliderProps } from "rc-slider";
 
 export type SliderProps<T extends number | number[]> = BaseSliderProps<T> & {
   markActiveValues?: boolean;
+  /** labels under the track by position; default: the min and max values */
+  marks?: BaseSliderProps["marks"];
   onChange?: (val: T) => void;
   value?: T;
 };
@@ -19,6 +21,7 @@ export const Slider = <T extends number | number[]>({
   min = 0,
   max = 100,
   markActiveValues = false,
+  marks,
   step: untypedStep = 1,
   value,
   ...rest
@@ -46,7 +49,7 @@ export const Slider = <T extends number | number[]>({
       step={step}
       min={min}
       max={max}
-      marks={defaultMarks}
+      marks={marks ?? defaultMarks}
       onChange={onChange as BaseSliderProps["onChange"]}
       value={value as BaseSliderProps["value"]}
     />
